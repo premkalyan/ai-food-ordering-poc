@@ -1004,46 +1004,84 @@ MENUS = {
             }
         ]
     },
-    "rest_012": {  # Coastal Curry House (Bangalore)
+    "rest_012": {  # Manhattan Tandoor (New York)
         "categories": [
             {
-                "name": "Seafood",
+                "name": "Appetizers",
                 "items": [
                     {
                         "id": "item_1201",
-                        "name": "Fish Curry",
-                        "description": "Fresh fish in coconut curry",
-                        "price": 320.00,
-                        "vegetarian": False,
-                        "spicy": True,
-                        "popular": True
+                        "name": "Samosa (2 pieces)",
+                        "description": "Crispy pastry filled with spiced potatoes",
+                        "price": 6.99,
+                        "vegetarian": True,
+                        "spicy": True
                     },
                     {
                         "id": "item_1202",
-                        "name": "Prawn Masala",
-                        "description": "Prawns in spicy masala gravy",
-                        "price": 380.00,
+                        "name": "Chicken Tikka",
+                        "description": "Marinated chicken grilled in tandoor",
+                        "price": 10.99,
                         "vegetarian": False,
                         "spicy": True
                     }
                 ]
             },
             {
-                "name": "Rice & Breads",
+                "name": "Main Course",
                 "items": [
                     {
                         "id": "item_1203",
-                        "name": "Steamed Rice",
-                        "description": "Plain steamed basmati rice",
-                        "price": 80.00,
+                        "name": "Chicken Tikka Masala",
+                        "description": "Grilled chicken in creamy tomato sauce",
+                        "price": 17.99,
+                        "vegetarian": False,
+                        "spicy": True,
+                        "popular": True
+                    },
+                    {
+                        "id": "item_1204",
+                        "name": "Butter Chicken",
+                        "description": "Tender chicken in rich butter sauce",
+                        "price": 17.99,
+                        "vegetarian": False,
+                        "spicy": False,
+                        "popular": True
+                    },
+                    {
+                        "id": "item_1205",
+                        "name": "Lamb Vindaloo",
+                        "description": "Spicy lamb curry with potatoes",
+                        "price": 19.99,
+                        "vegetarian": False,
+                        "spicy": True
+                    },
+                    {
+                        "id": "item_1206",
+                        "name": "Paneer Tikka Masala",
+                        "description": "Cottage cheese in creamy tomato sauce",
+                        "price": 15.99,
+                        "vegetarian": True,
+                        "spicy": False
+                    }
+                ]
+            },
+            {
+                "name": "Breads",
+                "items": [
+                    {
+                        "id": "item_1207",
+                        "name": "Garlic Naan",
+                        "description": "Tandoor-baked bread with garlic",
+                        "price": 3.99,
                         "vegetarian": True,
                         "spicy": False
                     },
                     {
-                        "id": "item_1204",
-                        "name": "Appam (2 pcs)",
-                        "description": "Soft rice pancakes",
-                        "price": 100.00,
+                        "id": "item_1208",
+                        "name": "Butter Naan",
+                        "description": "Classic tandoor-baked flatbread",
+                        "price": 2.99,
                         "vegetarian": True,
                         "spicy": False
                     }
