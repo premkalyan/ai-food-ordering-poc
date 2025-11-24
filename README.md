@@ -33,8 +33,10 @@ open http://localhost:8000/docs
 | Document | Purpose | Time to Read |
 |----------|---------|--------------|
 | **[QUICK_START.md](QUICK_START.md)** | Get running in 5 minutes | 5 min |
+| **[GITHUB_SETUP.md](GITHUB_SETUP.md)** | Push code to GitHub | 5 min |
+| **[VERCEL_DEPLOYMENT.md](VERCEL_DEPLOYMENT.md)** | Deploy to Vercel (production) | 10 min |
 | **[CHATGPT_SETUP.md](CHATGPT_SETUP.md)** | Set up Custom GPT integration | 10 min |
-| **[DEPLOYMENT.md](DEPLOYMENT.md)** | Deploy to production | 15 min |
+| **[DEPLOYMENT.md](DEPLOYMENT.md)** | Other deployment options | 15 min |
 | **[NOMNOM_INTEGRATION.md](NOMNOM_INTEGRATION.md)** | Integrate real Nomnom API | 20 min |
 | **[ARCHITECTURE.md](ARCHITECTURE.md)** | Technical architecture deep-dive | 15 min |
 | **[PITCH_DECK.md](PITCH_DECK.md)** | Partnership presentation (17 slides) | 30 min |
@@ -183,12 +185,17 @@ python test_api.py
 
 ## 📈 Next Steps
 
-### Week 1: Deploy & Test
+### Immediate: Deploy to Vercel
 1. ✅ POC complete (you are here)
-2. Deploy API publicly (Railway/ngrok)
-3. Create public Custom GPT
-4. Get Nomnom API documentation
-5. Test with internal users
+2. ✅ Git repository initialized
+3. ⏭️ Push to GitHub (see [GITHUB_SETUP.md](GITHUB_SETUP.md))
+4. ⏭️ Deploy to Vercel (see [VERCEL_DEPLOYMENT.md](VERCEL_DEPLOYMENT.md))
+5. ⏭️ Create public Custom GPT (see [CHATGPT_SETUP.md](CHATGPT_SETUP.md))
+
+### Week 1: Test & Integrate
+1. Test with internal users
+2. Get Nomnom API documentation
+3. Gather feedback
 
 ### Week 2: Nomnom Integration
 1. Integrate Nomnom API
