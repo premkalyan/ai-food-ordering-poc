@@ -366,6 +366,82 @@ async def process_order_payment(order_id: str, payment_request: PaymentRequest):
     logger.info(f"Payment result: {result}")
     return result
 
+@app.get(
+    "/api/v1/orders/{order_id}/track",
+    summary="Track order",
+    description="Get real-time order tracking information with automatic status progression"
+)
+async def track_order(order_id: str):
+    """
+    Track order with automatic status updates based on time elapsed.
+    
+    - **order_id**: Unique order identifier
+    
+    Status progression (automatic):
+    - 0-2 mins: pending
+    - 2-5 mins: confirmed
+    - 5-20 mins: preparing
+    - 20-30 mins: ready_for_pickup
+    - 30-45 mins: out_for_delivery
+    - 45+ mins: delivered
+    """
+    logger.info(f"Tracking order: {order_id}")
+    
+    order = get_order_by_id(order_id)
+    if not order:
+        raise HTTPException(status_code=404, detail="Order not found")
+    
+    # Calculate time elapsed since order creation
+    from datetime import datetime, timedelta
+    created_at = datetime.fromisoformat(order.get("created_at", datetime.now().isoformat()))
+    elapsed_minutes = (datetime.now() - created_at).total_seconds() / 60
+    
+    # Auto-update status based on elapsed time
+    if elapsed_minutes < 2:
+        current_status = "pending"
+        status_message = "Order received! Waiting for restaurant confirmation."
+        eta_minutes = 40
+    elif elapsed_minutes < 5:
+        current_status = "confirmed"
+        status_message = "Restaurant confirmed your order!"
+        eta_minutes = 35
+    elif elapsed_minutes < 20:
+        current_status = "preparing"
+        status_message = "Your food is being prepared! 🍳"
+        eta_minutes = 25
+    elif elapsed_minutes < 30:
+        current_status = "ready_for_pickup"
+        status_message = "Order is ready! Waiting for delivery driver."
+        eta_minutes = 15
+    elif elapsed_minutes < 45:
+        current_status = "out_for_delivery"
+        status_message = "On the way to you! 🚚"
+        eta_minutes = 10
+    else:
+        current_status = "delivered"
+        status_message = "Delivered! Enjoy your meal! 🍽️"
+        eta_minutes = 0
+    
+    # Update order status in storage
+    order["status"] = current_status
+    
+    # Calculate ETA
+    eta_time = (datetime.now() + timedelta(minutes=eta_minutes)).strftime("%I:%M %p")
+    
+    return {
+        "order_id": order_id,
+        "status": current_status,
+        "status_message": status_message,
+        "estimated_delivery": eta_time if eta_minutes > 0 else "Delivered",
+        "minutes_remaining": eta_minutes,
+        "restaurant": order.get("restaurant_name", "Restaurant"),
+        "total": order.get("total", 0),
+        "items_count": len(order.get("items", [])),
+        "delivery_address": order.get("delivery_address", {}).get("address", ""),
+        "created_at": order.get("created_at"),
+        "elapsed_minutes": int(elapsed_minutes)
+    }
+
 @app.patch(
     "/api/v1/orders/{order_id}/status",
     response_model=Order,
