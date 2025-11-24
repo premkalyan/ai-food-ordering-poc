@@ -396,27 +396,32 @@ async def track_order(order_id: str):
     created_at = datetime.fromisoformat(order.get("created_at", datetime.now().isoformat()))
     elapsed_minutes = (datetime.now() - created_at).total_seconds() / 60
     
-    # Auto-update status based on elapsed time
+    # Auto-update status based on elapsed time (DEMO MODE: 12 mins total)
+    # 6 stages × 2 minutes each for quick demo
     if elapsed_minutes < 2:
         current_status = "pending"
         status_message = "Order received! Waiting for restaurant confirmation."
-        eta_minutes = 40
-    elif elapsed_minutes < 5:
+        eta_minutes = 12
+    elif elapsed_minutes < 4:
         current_status = "confirmed"
         status_message = "Restaurant confirmed your order!"
-        eta_minutes = 35
-    elif elapsed_minutes < 20:
+        eta_minutes = 10
+    elif elapsed_minutes < 6:
         current_status = "preparing"
         status_message = "Your food is being prepared! 🍳"
-        eta_minutes = 25
-    elif elapsed_minutes < 30:
+        eta_minutes = 8
+    elif elapsed_minutes < 8:
         current_status = "ready_for_pickup"
         status_message = "Order is ready! Waiting for delivery driver."
-        eta_minutes = 15
-    elif elapsed_minutes < 45:
+        eta_minutes = 6
+    elif elapsed_minutes < 10:
         current_status = "out_for_delivery"
         status_message = "On the way to you! 🚚"
-        eta_minutes = 10
+        eta_minutes = 4
+    elif elapsed_minutes < 12:
+        current_status = "out_for_delivery"
+        status_message = "Almost there! Driver is nearby! 🚚"
+        eta_minutes = 2
     else:
         current_status = "delivered"
         status_message = "Delivered! Enjoy your meal! 🍽️"
