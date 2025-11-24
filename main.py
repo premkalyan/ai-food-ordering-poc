@@ -657,6 +657,7 @@ def parse_natural_language_query(query: str, location: Optional[str] = None) -> 
 def filter_restaurants_by_query(parsed: ParsedQuery, restaurants: List[Dict]) -> List[Dict]:
     """
     Filter restaurants based on parsed query
+    If price/dish/preferences specified, only return restaurants that have matching menu items
     """
     results = restaurants.copy()
     
@@ -664,14 +665,33 @@ def filter_restaurants_by_query(parsed: ParsedQuery, restaurants: List[Dict]) ->
     if parsed.cuisine:
         results = [r for r in results if r["cuisine"] in parsed.cuisine]
     
-    # Filter by delivery time
+    # Filter by delivery time (use minimum time, not maximum, for better UX)
     if parsed.time_max:
-        results = [r for r in results if extract_max_delivery_time(r["delivery_time"]) <= parsed.time_max]
+        filtered_by_time = []
+        for r in results:
+            try:
+                min_time = int(r["delivery_time"].split('-')[0].strip().split(' ')[0])
+                # Allow if minimum delivery time is within 5 minutes of requested time
+                if min_time <= parsed.time_max + 5:
+                    filtered_by_time.append(r)
+            except:
+                pass
+        results = filtered_by_time
+    
+    # Filter by dish, price, or preferences - check if restaurant has matching menu items
+    if parsed.dish or parsed.price_max or parsed.preferences:
+        filtered_with_items = []
+        for restaurant in results:
+            menu = MENUS.get(restaurant["id"], {"categories": []})
+            matching_items = filter_menu_items_by_query(parsed, menu)
+            if matching_items:  # Only include restaurant if it has matching items
+                filtered_with_items.append(restaurant)
+        results = filtered_with_items
     
     # Sort by relevance
     if parsed.urgency == "high":
         # Sort by fastest delivery
-        results.sort(key=lambda r: extract_max_delivery_time(r["delivery_time"]))
+        results.sort(key=lambda r: int(r["delivery_time"].split('-')[0].strip().split(' ')[0]))
     else:
         # Sort by rating
         results.sort(key=lambda r: r["rating"], reverse=True)
