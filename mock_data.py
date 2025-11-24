@@ -753,6 +753,243 @@ MENUS = {
                 ]
             }
         ]
+    },
+    "rest_009": {  # Spice Garden Indian Kitchen (Bangalore)
+        "categories": [
+            {
+                "name": "Appetizers",
+                "items": [
+                    {
+                        "id": "item_901",
+                        "name": "Vegetable Samosa (2 pcs)",
+                        "description": "Crispy pastry with spiced potato filling",
+                        "price": 80.00,
+                        "vegetarian": True,
+                        "spicy": True
+                    },
+                    {
+                        "id": "item_902",
+                        "name": "Paneer Tikka",
+                        "description": "Grilled cottage cheese with spices",
+                        "price": 220.00,
+                        "vegetarian": True,
+                        "spicy": True,
+                        "popular": True
+                    }
+                ]
+            },
+            {
+                "name": "Main Course",
+                "items": [
+                    {
+                        "id": "item_903",
+                        "name": "Butter Chicken",
+                        "description": "Tender chicken in creamy tomato sauce",
+                        "price": 350.00,
+                        "vegetarian": False,
+                        "spicy": False,
+                        "popular": True
+                    },
+                    {
+                        "id": "item_904",
+                        "name": "Paneer Butter Masala",
+                        "description": "Cottage cheese in rich tomato gravy",
+                        "price": 280.00,
+                        "vegetarian": True,
+                        "spicy": False,
+                        "popular": True
+                    },
+                    {
+                        "id": "item_905",
+                        "name": "Dal Makhani",
+                        "description": "Black lentils cooked overnight with cream",
+                        "price": 220.00,
+                        "vegetarian": True,
+                        "spicy": False
+                    }
+                ]
+            },
+            {
+                "name": "Breads",
+                "items": [
+                    {
+                        "id": "item_906",
+                        "name": "Butter Naan",
+                        "description": "Soft leavened bread with butter",
+                        "price": 50.00,
+                        "vegetarian": True,
+                        "spicy": False
+                    },
+                    {
+                        "id": "item_907",
+                        "name": "Garlic Naan",
+                        "description": "Naan topped with garlic and herbs",
+                        "price": 60.00,
+                        "vegetarian": True,
+                        "spicy": False
+                    }
+                ]
+            }
+        ]
+    },
+    "rest_010": {  # Bangalore Biryani House
+        "categories": [
+            {
+                "name": "Biryani",
+                "items": [
+                    {
+                        "id": "item_1001",
+                        "name": "Hyderabadi Chicken Biryani",
+                        "description": "Aromatic basmati rice with tender chicken",
+                        "price": 280.00,
+                        "vegetarian": False,
+                        "spicy": True,
+                        "popular": True
+                    },
+                    {
+                        "id": "item_1002",
+                        "name": "Mutton Biryani",
+                        "description": "Flavorful rice with succulent mutton",
+                        "price": 350.00,
+                        "vegetarian": False,
+                        "spicy": True,
+                        "popular": True
+                    },
+                    {
+                        "id": "item_1003",
+                        "name": "Vegetable Biryani",
+                        "description": "Mixed vegetables with fragrant rice",
+                        "price": 220.00,
+                        "vegetarian": True,
+                        "spicy": True
+                    }
+                ]
+            },
+            {
+                "name": "Sides",
+                "items": [
+                    {
+                        "id": "item_1004",
+                        "name": "Raita",
+                        "description": "Yogurt with cucumber and spices",
+                        "price": 60.00,
+                        "vegetarian": True,
+                        "spicy": False
+                    },
+                    {
+                        "id": "item_1005",
+                        "name": "Gulab Jamun (2 pcs)",
+                        "description": "Sweet milk dumplings in sugar syrup",
+                        "price": 80.00,
+                        "vegetarian": True,
+                        "spicy": False
+                    }
+                ]
+            }
+        ]
+    },
+    "rest_011": {  # Dosa Corner (Bangalore)
+        "categories": [
+            {
+                "name": "Dosas",
+                "items": [
+                    {
+                        "id": "item_1101",
+                        "name": "Masala Dosa",
+                        "description": "Crispy crepe with potato filling",
+                        "price": 120.00,
+                        "vegetarian": True,
+                        "spicy": True,
+                        "popular": True
+                    },
+                    {
+                        "id": "item_1102",
+                        "name": "Mysore Masala Dosa",
+                        "description": "Spicy red chutney dosa with potato",
+                        "price": 140.00,
+                        "vegetarian": True,
+                        "spicy": True,
+                        "popular": True
+                    },
+                    {
+                        "id": "item_1103",
+                        "name": "Onion Rava Dosa",
+                        "description": "Crispy semolina crepe with onions",
+                        "price": 150.00,
+                        "vegetarian": True,
+                        "spicy": True
+                    }
+                ]
+            },
+            {
+                "name": "Idli & Vada",
+                "items": [
+                    {
+                        "id": "item_1104",
+                        "name": "Idli (3 pcs)",
+                        "description": "Steamed rice cakes with chutney",
+                        "price": 80.00,
+                        "vegetarian": True,
+                        "spicy": False
+                    },
+                    {
+                        "id": "item_1105",
+                        "name": "Medu Vada (2 pcs)",
+                        "description": "Crispy lentil donuts",
+                        "price": 90.00,
+                        "vegetarian": True,
+                        "spicy": True
+                    }
+                ]
+            }
+        ]
+    },
+    "rest_012": {  # Coastal Curry House (Bangalore)
+        "categories": [
+            {
+                "name": "Seafood",
+                "items": [
+                    {
+                        "id": "item_1201",
+                        "name": "Fish Curry",
+                        "description": "Fresh fish in coconut curry",
+                        "price": 320.00,
+                        "vegetarian": False,
+                        "spicy": True,
+                        "popular": True
+                    },
+                    {
+                        "id": "item_1202",
+                        "name": "Prawn Masala",
+                        "description": "Prawns in spicy masala gravy",
+                        "price": 380.00,
+                        "vegetarian": False,
+                        "spicy": True
+                    }
+                ]
+            },
+            {
+                "name": "Rice & Breads",
+                "items": [
+                    {
+                        "id": "item_1203",
+                        "name": "Steamed Rice",
+                        "description": "Plain steamed basmati rice",
+                        "price": 80.00,
+                        "vegetarian": True,
+                        "spicy": False
+                    },
+                    {
+                        "id": "item_1204",
+                        "name": "Appam (2 pcs)",
+                        "description": "Soft rice pancakes",
+                        "price": 100.00,
+                        "vegetarian": True,
+                        "spicy": False
+                    }
+                ]
+            }
+        ]
     }
 }
 
