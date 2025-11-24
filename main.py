@@ -735,41 +735,47 @@ async def intelligent_search(request: IntelligentSearchRequest):
     - "I'm hungry, get me something spicy in 15 minutes"
     - "Something Italian under $5 in 10 minutes"
     """
+    logger.info(f"[INTELLIGENT_SEARCH] ========== REQUEST RECEIVED ==========")
+    logger.info(f"[INTELLIGENT_SEARCH] Query: '{request.query}'")
+    logger.info(f"[INTELLIGENT_SEARCH] Location: '{request.location}'")
+    
     try:
-        logger.info(f"[INTELLIGENT_SEARCH] Starting - Query: {request.query}")
+        logger.info(f"[INTELLIGENT_SEARCH] Step 1: Parsing query...")
         
         # Parse the query
         parsed = parse_natural_language_query(request.query, request.location)
-        logger.info(f"[INTELLIGENT_SEARCH] Parsed: {parsed.dict()}")
+        logger.info(f"[INTELLIGENT_SEARCH] Step 1 DONE - Parsed: {parsed.dict()}")
     except Exception as e:
         logger.error(f"[INTELLIGENT_SEARCH] Parse error: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Query parsing failed: {str(e)}")
     
     try:
+        logger.info(f"[INTELLIGENT_SEARCH] Step 2: Getting restaurants...")
         # Get all restaurants (or filter by location if provided)
-        logger.info(f"[INTELLIGENT_SEARCH] Getting restaurants for location: {request.location or parsed.location}")
         if request.location or parsed.location:
             city = request.location or parsed.location
             all_restaurants = get_restaurants_by_location(city=city)
         else:
             all_restaurants = RESTAURANTS
         
-        logger.info(f"[INTELLIGENT_SEARCH] Found {len(all_restaurants)} restaurants")
+        logger.info(f"[INTELLIGENT_SEARCH] Step 2 DONE - Found {len(all_restaurants)} restaurants")
         
+        logger.info(f"[INTELLIGENT_SEARCH] Step 3: Filtering restaurants...")
         # Filter restaurants by parsed query
         filtered_restaurants = filter_restaurants_by_query(parsed, all_restaurants)
-        logger.info(f"[INTELLIGENT_SEARCH] Filtered to {len(filtered_restaurants)} restaurants")
+        logger.info(f"[INTELLIGENT_SEARCH] Step 3 DONE - Filtered to {len(filtered_restaurants)} restaurants")
     except Exception as e:
         logger.error(f"[INTELLIGENT_SEARCH] Filter error: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Restaurant filtering failed: {str(e)}")
     
     try:
+        logger.info(f"[INTELLIGENT_SEARCH] Step 4: Getting menu items...")
         # Get suggested menu items - SIMPLIFIED for performance
-        logger.info(f"[INTELLIGENT_SEARCH] Getting menu items for top restaurants")
         suggested_items = []
         
         # Only process menu items if we have specific dish or price constraints
         if parsed.dish or parsed.price_max or parsed.preferences:
+            logger.info(f"[INTELLIGENT_SEARCH] Step 4a: Processing menus for top {min(2, len(filtered_restaurants))} restaurants")
             for restaurant in filtered_restaurants[:2]:  # Only top 2 restaurants
                 menu = MENUS.get(restaurant["id"], {"categories": []})
                 items = filter_menu_items_by_query(parsed, menu)
@@ -784,11 +790,15 @@ async def intelligent_search(request: IntelligentSearchRequest):
                         "spicy": item.get("spicy", False),
                         "vegetarian": item.get("vegetarian", False)
                     })
+        else:
+            logger.info(f"[INTELLIGENT_SEARCH] Step 4a: Skipping menu items (no dish/price/preference constraints)")
         
-        logger.info(f"[INTELLIGENT_SEARCH] Found {len(suggested_items)} suggested items")
+        logger.info(f"[INTELLIGENT_SEARCH] Step 4 DONE - Found {len(suggested_items)} suggested items")
     except Exception as e:
         logger.error(f"[INTELLIGENT_SEARCH] Menu items error: {str(e)}")
         suggested_items = []  # Continue without suggested items
+    
+    logger.info(f"[INTELLIGENT_SEARCH] Step 5: Building response...")
     
     # Build response message
     if not filtered_restaurants:
@@ -802,6 +812,7 @@ async def intelligent_search(request: IntelligentSearchRequest):
         if parsed.cuisine:
             alternatives.append(f"Try a different cuisine")
         
+        logger.info(f"[INTELLIGENT_SEARCH] Step 5 DONE - No results, returning alternatives")
         return IntelligentSearchResponse(
             parsed_query=parsed,
             restaurants=[],
@@ -827,7 +838,8 @@ async def intelligent_search(request: IntelligentSearchRequest):
     if parsed.price_max:
         message += f" (items under ${parsed.price_max})"
     
-    logger.info(f"[INTELLIGENT_SEARCH] Success - Returning {len(filtered_restaurants[:5])} restaurants")
+    logger.info(f"[INTELLIGENT_SEARCH] Step 5 DONE - Returning {len(filtered_restaurants[:5])} restaurants")
+    logger.info(f"[INTELLIGENT_SEARCH] ========== REQUEST COMPLETE ==========")
     
     return IntelligentSearchResponse(
         parsed_query=parsed,
