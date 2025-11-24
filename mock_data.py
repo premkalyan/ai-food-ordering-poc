@@ -332,6 +332,46 @@ RESTAURANTS = [
         "delivery_fee": 5.99,
         "is_open": True,
         "image_url": "https://example.com/chicago-pizza.jpg"
+    },
+    {
+        "id": "rest_017",
+        "name": "Windy City Tacos",
+        "cuisine": "Mexican",
+        "location": {
+            "address": "123 State St, Chicago, IL 60602",
+            "city": "Chicago",
+            "state": "IL",
+            "zip": "60602",
+            "lat": 41.8819,
+            "lng": -87.6278
+        },
+        "rating": 4.6,
+        "price_range": "$$",
+        "delivery_time": "15-25 min",
+        "minimum_order": 12.00,
+        "delivery_fee": 2.99,
+        "is_open": True,
+        "image_url": "https://example.com/windy-tacos.jpg"
+    },
+    {
+        "id": "rest_018",
+        "name": "Lake Shore Chinese",
+        "cuisine": "Chinese",
+        "location": {
+            "address": "789 Wabash Ave, Chicago, IL 60605",
+            "city": "Chicago",
+            "state": "IL",
+            "zip": "60605",
+            "lat": 41.8756,
+            "lng": -87.6244
+        },
+        "rating": 4.4,
+        "price_range": "$$",
+        "delivery_time": "20-30 min",
+        "minimum_order": 15.00,
+        "delivery_fee": 3.49,
+        "is_open": True,
+        "image_url": "https://example.com/lakeshore-chinese.jpg"
     }
 ]
 
@@ -1012,7 +1052,195 @@ MENUS = {
                         "price": 22.99,
                         "vegetarian": True,
                         "image_url": "https://example.com/veggie-deep-dish.jpg"
+                    }
+                ]
+            }
+        ]
+    },
+    "rest_017": {  # Windy City Tacos
+        "categories": [
+            {
+                "name": "Tacos",
+                "items": [
+                    {
+                        "id": "item_601",
+                        "name": "Carne Asada Tacos",
+                        "description": "Grilled steak with onions, cilantro, and lime",
+                        "price": 12.99,
+                        "vegetarian": False,
+                        "spicy": True,
+                        "popular": True
                     },
+                    {
+                        "id": "item_602",
+                        "name": "Chicken Tacos",
+                        "description": "Seasoned chicken with lettuce, cheese, and salsa",
+                        "price": 10.99,
+                        "vegetarian": False,
+                        "spicy": True
+                    },
+                    {
+                        "id": "item_603",
+                        "name": "Veggie Tacos",
+                        "description": "Black beans, corn, peppers, and avocado",
+                        "price": 9.99,
+                        "vegetarian": True
+                    }
+                ]
+            },
+            {
+                "name": "Burritos",
+                "items": [
+                    {
+                        "id": "item_604",
+                        "name": "California Burrito",
+                        "description": "Carne asada, fries, cheese, sour cream, and guacamole",
+                        "price": 14.99,
+                        "vegetarian": False,
+                        "popular": True
+                    }
+                ]
+            }
+        ]
+    },
+    "rest_018": {  # Lake Shore Chinese
+        "categories": [
+            {
+                "name": "Popular Dishes",
+                "items": [
+                    {
+                        "id": "item_701",
+                        "name": "General Tso's Chicken",
+                        "description": "Crispy chicken in sweet and spicy sauce",
+                        "price": 13.99,
+                        "vegetarian": False,
+                        "spicy": True,
+                        "popular": True
+                    },
+                    {
+                        "id": "item_702",
+                        "name": "Beef and Broccoli",
+                        "description": "Tender beef with fresh broccoli in brown sauce",
+                        "price": 14.99,
+                        "vegetarian": False
+                    },
+                    {
+                        "id": "item_703",
+                        "name": "Vegetable Fried Rice",
+                        "description": "Wok-fried rice with mixed vegetables",
+                        "price": 9.99,
+                        "vegetarian": True
+                    },
+                    {
+                        "id": "item_704",
+                        "name": "Kung Pao Chicken",
+                        "description": "Spicy chicken with peanuts and vegetables",
+                        "price": 13.99,
+                        "vegetarian": False,
+                        "spicy": True
+                    }
+                ]
+            }
+        ]
+    },
+    "rest_019": {  # Placeholder for future expansion
+        "categories": []
+    },
+    "rest_020": {  # Placeholder for future expansion
+        "categories": []
+    },
+    "rest_021": {  # Placeholder for future expansion
+        "categories": []
+    },
+    "rest_022": {  # Placeholder for future expansion
+        "categories": []
+    },
+    "rest_023": {  # Placeholder for future expansion
+        "categories": []
+    },
+    "rest_024": {  # Placeholder for future expansion
+        "categories": []
+    },
+    "rest_025": {  # Placeholder for future expansion
+        "categories": []
+    },
+    "rest_026": {  # Placeholder for future expansion
+        "categories": []
+    },
+    "rest_027": {  # Placeholder for future expansion
+        "categories": []
+    },
+    "rest_028": {  # Placeholder for future expansion
+        "categories": []
+    },
+    "rest_029": {  # Placeholder for future expansion
+        "categories": []
+    },
+    "rest_030": {  # Placeholder for future expansion
+        "categories": []
+    },
+    "rest_031": {  # Placeholder for future expansion
+        "categories": []
+    },
+    "rest_032": {  # Placeholder for future expansion
+        "categories": []
+    },
+    "rest_033": {  # Placeholder for future expansion
+        "categories": []
+    },
+    "rest_034": {  # Placeholder for future expansion
+        "categories": []
+    },
+    "rest_035": {  # Placeholder for future expansion
+        "categories": []
+    },
+    "rest_036": {  # Placeholder for future expansion
+        "categories": []
+    },
+    "rest_037": {  # Placeholder for future expansion
+        "categories": []
+    },
+    "rest_038": {  # Placeholder for future expansion
+        "categories": []
+    },
+    "rest_039": {  # Placeholder for future expansion
+        "categories": []
+    },
+    "rest_040": {  # Placeholder for future expansion
+        "categories": [
+                ]
+            }
+        ]
+    },
+    "rest_041": {  # Placeholder for future expansion
+        "categories": []
+    },
+    "rest_042": {  # Placeholder for future expansion
+        "categories": []
+    },
+    "rest_043": {  # Placeholder for future expansion
+        "categories": []
+    },
+    "rest_044": {  # Placeholder for future expansion
+        "categories": []
+    },
+    "rest_045": {  # Placeholder for future expansion
+        "categories": []
+    },
+    "rest_046": {  # Placeholder for future expansion
+        "categories": []
+    },
+    "rest_047": {  # Placeholder for future expansion
+        "categories": []
+    },
+    "rest_048": {  # Placeholder for future expansion
+        "categories": []
+    },
+    "rest_049": {  # Placeholder for future expansion
+        "categories": []
+    },
+    "rest_050": {  # Placeholder for future expansion
+        "categories": [,
                     {
                         "id": "item_503",
                         "name": "Meat Lovers Deep Dish",
