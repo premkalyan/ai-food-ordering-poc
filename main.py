@@ -729,16 +729,89 @@ def filter_menu_items_by_query(parsed: ParsedQuery, menu: Dict) -> List[Dict]:
 )
 async def intelligent_search(query: str = "test", location: str = "San Francisco"):
     """
-    MINIMAL VERSION - Just return hello world to test if endpoint works
-    """
-    logger.info(f"[INTELLIGENT_SEARCH] Hello World endpoint hit!")
+    Intelligent search using GET with query parameters
     
-    return {
-        "message": "Hello World from intelligent search!",
-        "query": query,
-        "location": location,
-        "status": "success"
-    }
+    Examples:
+    - query: "I want tandoori chicken from an Indian restaurant"
+    - query: "Something spicy under $15 in 20 minutes"
+    - query: "Pizza from my favorite restaurant"
+    """
+    logger.info(f"[INTELLIGENT_SEARCH] Query: '{query}', Location: '{location}'")
+    
+    try:
+        # Step 1: Parse the query
+        parsed = parse_natural_language_query(query, location)
+        logger.info(f"[INTELLIGENT_SEARCH] Parsed: {parsed.dict()}")
+        
+        # Step 2: Get restaurants by location
+        if location or parsed.location:
+            city = location or parsed.location
+            all_restaurants = get_restaurants_by_location(city=city)
+        else:
+            all_restaurants = RESTAURANTS
+        
+        logger.info(f"[INTELLIGENT_SEARCH] Found {len(all_restaurants)} restaurants in {city}")
+        
+        # Step 3: Filter by parsed criteria
+        filtered_restaurants = filter_restaurants_by_query(parsed, all_restaurants)
+        logger.info(f"[INTELLIGENT_SEARCH] Filtered to {len(filtered_restaurants)} restaurants")
+        
+        # Step 4: Get suggested menu items (only if needed)
+        suggested_items = []
+        if parsed.dish or parsed.price_max or parsed.preferences:
+            for restaurant in filtered_restaurants[:2]:  # Top 2 only
+                menu = MENUS.get(restaurant["id"], {"categories": []})
+                items = filter_menu_items_by_query(parsed, menu)
+                for item in items[:1]:  # Top 1 item per restaurant
+                    suggested_items.append({
+                        "restaurant_id": restaurant["id"],
+                        "restaurant_name": restaurant["name"],
+                        "item_name": item.get("name", ""),
+                        "price": item.get("price", 0),
+                        "spicy": item.get("spicy", False),
+                        "vegetarian": item.get("vegetarian", False)
+                    })
+        
+        # Step 5: Build response
+        if not filtered_restaurants:
+            return {
+                "message": "No restaurants found matching your criteria",
+                "query": query,
+                "location": location,
+                "parsed": parsed.dict(),
+                "restaurants": [],
+                "suggested_items": []
+            }
+        
+        # Success message
+        if parsed.dish:
+            message = f"Found {len(filtered_restaurants)} restaurants with {parsed.dish}"
+        elif parsed.cuisine:
+            cuisine_str = ", ".join(parsed.cuisine)
+            message = f"Found {len(filtered_restaurants)} {cuisine_str} restaurants"
+        else:
+            message = f"Found {len(filtered_restaurants)} restaurants"
+        
+        logger.info(f"[INTELLIGENT_SEARCH] Success - Returning {len(filtered_restaurants[:5])} restaurants")
+        
+        return {
+            "message": message,
+            "query": query,
+            "location": location,
+            "parsed": parsed.dict(),
+            "restaurants": filtered_restaurants[:5],
+            "suggested_items": suggested_items
+        }
+        
+    except Exception as e:
+        logger.error(f"[INTELLIGENT_SEARCH] Error: {str(e)}")
+        return {
+            "message": f"Error processing query: {str(e)}",
+            "query": query,
+            "location": location,
+            "restaurants": [],
+            "suggested_items": []
+        }
 
 # Favorites Endpoints
 
