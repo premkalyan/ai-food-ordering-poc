@@ -21,6 +21,8 @@ from mock_data import (
     process_payment,
     CUISINES,
     CITIES,
+    RESTAURANTS,
+    MENUS,
     get_favorite_restaurants,
     add_favorite_restaurant,
     remove_favorite_restaurant,
@@ -181,6 +183,29 @@ class PaymentResponse(BaseModel):
     success: bool
     transaction_id: Optional[str]
     message: str
+
+class IntelligentSearchRequest(BaseModel):
+    query: str = Field(..., description="Natural language query (e.g., 'spicy food in 15 minutes under $10')")
+    user_id: Optional[str] = Field(None, description="User ID for personalization")
+    location: Optional[str] = Field(None, description="User location/city")
+
+class ParsedQuery(BaseModel):
+    intent: str
+    cuisine: Optional[List[str]] = None
+    dish: Optional[str] = None
+    price_max: Optional[float] = None
+    time_max: Optional[int] = None
+    preferences: List[str] = []
+    location: Optional[str] = None
+    use_favorites: bool = False
+    urgency: Optional[str] = None
+
+class IntelligentSearchResponse(BaseModel):
+    parsed_query: ParsedQuery
+    restaurants: List[Restaurant]
+    suggested_items: List[Dict[str, Any]]
+    message: str
+    alternatives: Optional[List[str]] = None
 
 # API Endpoints
 
@@ -539,6 +564,253 @@ async def get_user_location(city: Optional[str] = None):
         "available": True,
         "note": "Demo location - in production, would use actual geolocation"
     }
+
+# Intelligent Search Endpoint
+
+def parse_natural_language_query(query: str, location: Optional[str] = None) -> ParsedQuery:
+    """
+    Parse natural language query into structured data
+    """
+    query_lower = query.lower()
+    
+    # Extract cuisine
+    cuisines_found = []
+    for cuisine in CUISINES:
+        if cuisine.lower() in query_lower:
+            cuisines_found.append(cuisine)
+    
+    # Extract dish names (common dishes)
+    dish = None
+    common_dishes = [
+        "tandoori chicken", "butter chicken", "biryani", "naan",
+        "pizza", "pasta", "margherita", "pepperoni",
+        "sushi", "ramen", "tempura",
+        "tacos", "burrito", "quesadilla",
+        "pad thai", "curry", "fried rice", "noodles"
+    ]
+    for dish_name in common_dishes:
+        if dish_name in query_lower:
+            dish = dish_name.title()
+            break
+    
+    # Extract price constraint
+    price_max = None
+    import re
+    price_match = re.search(r'\$(\d+)', query_lower)
+    if price_match:
+        price_max = float(price_match.group(1))
+    elif "under" in query_lower or "below" in query_lower:
+        # Look for numbers after "under" or "below"
+        under_match = re.search(r'(?:under|below)\s+\$?(\d+)', query_lower)
+        if under_match:
+            price_max = float(under_match.group(1))
+    
+    # Extract time constraint
+    time_max = None
+    time_match = re.search(r'(\d+)\s*(?:min|minute)', query_lower)
+    if time_match:
+        time_max = int(time_match.group(1))
+    elif "quick" in query_lower or "fast" in query_lower or "asap" in query_lower:
+        time_max = 20  # Assume quick means 20 minutes or less
+    
+    # Extract preferences
+    preferences = []
+    if "spicy" in query_lower or "hot" in query_lower:
+        preferences.append("spicy")
+    if "vegetarian" in query_lower or "veg" in query_lower:
+        preferences.append("vegetarian")
+    if "vegan" in query_lower:
+        preferences.append("vegan")
+    if "healthy" in query_lower:
+        preferences.append("healthy")
+    
+    # Detect favorites intent
+    use_favorites = "favorite" in query_lower or "usual" in query_lower or "regular" in query_lower
+    
+    # Detect urgency
+    urgency = None
+    if "hungry" in query_lower or "starving" in query_lower:
+        urgency = "high"
+    
+    # Determine intent
+    if use_favorites:
+        intent = "favorites"
+    elif dish or cuisines_found:
+        intent = "search"
+    elif urgency:
+        intent = "urgent"
+    else:
+        intent = "browse"
+    
+    return ParsedQuery(
+        intent=intent,
+        cuisine=cuisines_found if cuisines_found else None,
+        dish=dish,
+        price_max=price_max,
+        time_max=time_max,
+        preferences=preferences,
+        location=location,
+        use_favorites=use_favorites,
+        urgency=urgency
+    )
+
+def filter_restaurants_by_query(parsed: ParsedQuery, restaurants: List[Dict]) -> List[Dict]:
+    """
+    Filter restaurants based on parsed query
+    """
+    results = restaurants.copy()
+    
+    # Filter by cuisine
+    if parsed.cuisine:
+        results = [r for r in results if r["cuisine"] in parsed.cuisine]
+    
+    # Filter by delivery time
+    if parsed.time_max:
+        results = [r for r in results if extract_max_delivery_time(r["delivery_time"]) <= parsed.time_max]
+    
+    # Sort by relevance
+    if parsed.urgency == "high":
+        # Sort by fastest delivery
+        results.sort(key=lambda r: extract_max_delivery_time(r["delivery_time"]))
+    else:
+        # Sort by rating
+        results.sort(key=lambda r: r["rating"], reverse=True)
+    
+    return results
+
+def extract_max_delivery_time(delivery_time_str: str) -> int:
+    """
+    Extract maximum delivery time from string like '30-45 min'
+    """
+    import re
+    match = re.search(r'(\d+)-(\d+)', delivery_time_str)
+    if match:
+        return int(match.group(2))
+    return 60  # Default to 60 if can't parse
+
+def filter_menu_items_by_query(parsed: ParsedQuery, menu: Dict) -> List[Dict]:
+    """
+    Filter menu items based on parsed query
+    """
+    all_items = []
+    
+    # Flatten menu items from all categories
+    for category in menu.get("categories", []):
+        for item in category.get("items", []):
+            item_dict = item.copy() if isinstance(item, dict) else item.dict()
+            item_dict["category"] = category.get("name", "")
+            all_items.append(item_dict)
+    
+    results = all_items.copy()
+    
+    # Filter by dish name
+    if parsed.dish:
+        dish_lower = parsed.dish.lower()
+        results = [item for item in results if dish_lower in item["name"].lower()]
+    
+    # Filter by price
+    if parsed.price_max:
+        results = [item for item in results if item["price"] <= parsed.price_max]
+    
+    # Filter by preferences
+    if "spicy" in parsed.preferences:
+        results = [item for item in results if item.get("spicy", False)]
+    
+    if "vegetarian" in parsed.preferences:
+        results = [item for item in results if item.get("vegetarian", False)]
+    
+    return results
+
+@app.post(
+    "/api/v1/search/intelligent",
+    response_model=IntelligentSearchResponse,
+    summary="Intelligent search with natural language",
+    description="Search restaurants using complex natural language queries with multiple constraints"
+)
+async def intelligent_search(request: IntelligentSearchRequest):
+    """
+    Handle complex natural language queries like:
+    - "I would like to try Tandoori Chicken from an Indian restaurant"
+    - "I'm hungry, get me something spicy in 15 minutes"
+    - "Something Italian under $5 in 10 minutes"
+    """
+    logger.info(f"Intelligent search: {request.query}")
+    
+    # Parse the query
+    parsed = parse_natural_language_query(request.query, request.location)
+    logger.info(f"Parsed query: {parsed.dict()}")
+    
+    # Get all restaurants (or filter by location if provided)
+    if request.location or parsed.location:
+        city = request.location or parsed.location
+        all_restaurants = get_restaurants_by_location(city=city)
+    else:
+        all_restaurants = RESTAURANTS
+    
+    # Filter restaurants by parsed query
+    filtered_restaurants = filter_restaurants_by_query(parsed, all_restaurants)
+    
+    # Get suggested menu items
+    suggested_items = []
+    for restaurant in filtered_restaurants[:3]:  # Top 3 restaurants
+        menu = MENUS.get(restaurant["id"], {"categories": []})
+        items = filter_menu_items_by_query(parsed, menu)
+        for item in items[:2]:  # Top 2 items per restaurant
+            suggested_items.append({
+                "restaurant_id": restaurant["id"],
+                "restaurant_name": restaurant["name"],
+                "item_id": item.get("id", ""),
+                "item_name": item.get("name", ""),
+                "price": item.get("price", 0),
+                "category": item.get("category", ""),
+                "spicy": item.get("spicy", False),
+                "vegetarian": item.get("vegetarian", False)
+            })
+    
+    # Build response message
+    if not filtered_restaurants:
+        message = "No restaurants match your criteria."
+        alternatives = []
+        
+        if parsed.price_max:
+            alternatives.append(f"Try increasing your budget above ${parsed.price_max}")
+        if parsed.time_max:
+            alternatives.append(f"Allow more than {parsed.time_max} minutes for delivery")
+        if parsed.cuisine:
+            alternatives.append(f"Try a different cuisine")
+        
+        return IntelligentSearchResponse(
+            parsed_query=parsed,
+            restaurants=[],
+            suggested_items=[],
+            message=message,
+            alternatives=alternatives if alternatives else None
+        )
+    
+    # Success message
+    if parsed.dish:
+        message = f"Found {len(filtered_restaurants)} restaurants with {parsed.dish}"
+    elif parsed.cuisine:
+        cuisine_str = ", ".join(parsed.cuisine)
+        message = f"Found {len(filtered_restaurants)} {cuisine_str} restaurants"
+    elif parsed.urgency == "high":
+        fastest = filtered_restaurants[0]
+        message = f"Found {len(filtered_restaurants)} restaurants, fastest delivery in {fastest['delivery_time']}"
+    else:
+        message = f"Found {len(filtered_restaurants)} restaurants matching your criteria"
+    
+    if parsed.time_max:
+        message += f" (delivery within {parsed.time_max} minutes)"
+    if parsed.price_max:
+        message += f" (items under ${parsed.price_max})"
+    
+    return IntelligentSearchResponse(
+        parsed_query=parsed,
+        restaurants=filtered_restaurants[:5],  # Return top 5
+        suggested_items=suggested_items,
+        message=message,
+        alternatives=None
+    )
 
 # Favorites Endpoints
 
