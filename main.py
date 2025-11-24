@@ -10,7 +10,6 @@ from typing import List, Optional, Dict, Any
 from datetime import datetime
 import logging
 import json
-from pathlib import Path
 
 from mock_data import (
     get_restaurants_by_location,
@@ -25,18 +24,15 @@ from mock_data import (
 )
 
 # Configure logging
+# Note: File logging disabled for Vercel serverless environment (read-only filesystem)
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     handlers=[
-        logging.FileHandler('api_calls.log'),
-        logging.StreamHandler()
+        logging.StreamHandler()  # Console only for Vercel
     ]
 )
 logger = logging.getLogger(__name__)
-
-# Create logs directory
-Path("logs").mkdir(exist_ok=True)
 
 app = FastAPI(
     title="AI Food Ordering API",
