@@ -80,18 +80,9 @@ async def log_requests(request: Request, call_next):
         "user_agent": request.headers.get("user-agent", ""),
     }
     
-    # Get request body if present (but don't consume it for the endpoint)
-    if request.method in ["POST", "PUT", "PATCH"]:
-        try:
-            # Read body and store it for logging
-            body_bytes = await request.body()
-            if body_bytes:
-                request_log["body"] = json.loads(body_bytes.decode())
-                # IMPORTANT: Store body in request state so endpoint can access it
-                # This is needed because await request.body() can only be called once
-                request._body = body_bytes
-        except Exception as e:
-            logger.warning(f"Failed to parse request body: {e}")
+    # NOTE: Do NOT read request body here - it will consume the stream
+    # and prevent FastAPI from reading it in the endpoint handler
+    # Body logging is done inside individual endpoints instead
     
     logger.info(f"REQUEST: {json.dumps(request_log, indent=2)}")
     
