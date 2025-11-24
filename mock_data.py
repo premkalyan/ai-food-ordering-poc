@@ -1207,10 +1207,7 @@ MENUS = {
         "categories": []
     },
     "rest_040": {  # Placeholder for future expansion
-        "categories": [
-                ]
-            }
-        ]
+        "categories": []
     },
     "rest_041": {  # Placeholder for future expansion
         "categories": []
@@ -1240,138 +1237,54 @@ MENUS = {
         "categories": []
     },
     "rest_050": {  # Placeholder for future expansion
-        "categories": [,
-                    {
-                        "id": "item_503",
-                        "name": "Meat Lovers Deep Dish",
-                        "description": "Sausage, pepperoni, bacon, and ham",
-                        "price": 26.99,
-                        "vegetarian": False,
-                        "popular": True,
-                        "image_url": "https://example.com/meat-lovers.jpg"
-                    }
-                ]
-            },
-            {
-                "name": "Thin Crust Pizza",
-                "items": [
-                    {
-                        "id": "item_504",
-                        "name": "Margherita",
-                        "description": "Fresh mozzarella, basil, and tomato sauce",
-                        "price": 16.99,
-                        "vegetarian": True,
-                        "image_url": "https://example.com/margherita.jpg"
-                    },
-                    {
-                        "id": "item_505",
-                        "name": "Pepperoni",
-                        "description": "Classic pepperoni with mozzarella",
-                        "price": 18.99,
-                        "vegetarian": False,
-                        "image_url": "https://example.com/pepperoni.jpg"
-                    }
-                ]
-            },
-            {
-                "name": "Appetizers",
-                "items": [
-                    {
-                        "id": "item_506",
-                        "name": "Garlic Bread",
-                        "description": "Toasted bread with garlic butter and parmesan",
-                        "price": 6.99,
-                        "vegetarian": True,
-                        "image_url": "https://example.com/garlic-bread.jpg"
-                    },
-                    {
-                        "id": "item_507",
-                        "name": "Mozzarella Sticks",
-                        "description": "Breaded mozzarella with marinara sauce",
-                        "price": 8.99,
-                        "vegetarian": True,
-                        "image_url": "https://example.com/mozzarella-sticks.jpg"
-                    },
-                    {
-                        "id": "item_508",
-                        "name": "Buffalo Wings (8pc)",
-                        "description": "Spicy buffalo wings with ranch dressing",
-                        "price": 12.99,
-                        "vegetarian": False,
-                        "popular": True,
-                        "image_url": "https://example.com/buffalo-wings.jpg"
-                    }
-                ]
-            },
-            {
-                "name": "Salads",
-                "items": [
-                    {
-                        "id": "item_509",
-                        "name": "Caesar Salad",
-                        "description": "Romaine lettuce, parmesan, croutons, caesar dressing",
-                        "price": 9.99,
-                        "vegetarian": True,
-                        "image_url": "https://example.com/caesar-salad.jpg"
-                    },
-                    {
-                        "id": "item_510",
-                        "name": "House Salad",
-                        "description": "Mixed greens, tomatoes, cucumbers, italian dressing",
-                        "price": 7.99,
-                        "vegetarian": True,
-                        "image_url": "https://example.com/house-salad.jpg"
-                    }
-                ]
-            },
-            {
-                "name": "Desserts",
-                "items": [
-                    {
-                        "id": "item_511",
-                        "name": "Tiramisu",
-                        "description": "Classic Italian dessert with espresso and mascarpone",
-                        "price": 7.99,
-                        "vegetarian": True,
-                        "image_url": "https://example.com/tiramisu.jpg"
-                    },
-                    {
-                        "id": "item_512",
-                        "name": "Cannoli",
-                        "description": "Crispy pastry shell with sweet ricotta filling",
-                        "price": 6.99,
-                        "vegetarian": True,
-                        "image_url": "https://example.com/cannoli.jpg"
-                    }
-                ]
-            },
-            {
-                "name": "Beverages",
-                "items": [
-                    {
-                        "id": "item_513",
-                        "name": "Soft Drink",
-                        "description": "Coke, Diet Coke, Sprite, or Fanta",
-                        "price": 2.99,
-                        "vegetarian": True,
-                        "image_url": "https://example.com/soda.jpg"
-                    },
-                    {
-                        "id": "item_514",
-                        "name": "Iced Tea",
-                        "description": "Freshly brewed iced tea",
-                        "price": 2.99,
-                        "vegetarian": True,
-                        "image_url": "https://example.com/iced-tea.jpg"
-                    }
-                ]
-            }
-        ]
+        "categories": []
     }
 }
 
+# Mock orders storage
+MOCK_ORDERS = {}
+
+# User favorites storage
+USER_FAVORITES = {
+    "restaurants": set(),
+    "items": []
+}
+
+def add_favorite_restaurant(restaurant_id: str):
+    """Add a restaurant to user favorites"""
+    USER_FAVORITES["restaurants"].add(restaurant_id)
+
+def get_favorite_restaurants():
+    """Get list of favorite restaurants"""
+    return list(USER_FAVORITES["restaurants"])
+
+def remove_favorite_restaurant(restaurant_id: str):
+    """Remove a restaurant from favorites"""
+    USER_FAVORITES["restaurants"].discard(restaurant_id)
+
+def add_favorite_item(restaurant_id: str, item_id: str, item_name: str):
+    """Add a menu item to favorites"""
+    favorite = {
+        "restaurant_id": restaurant_id,
+        "item_id": item_id,
+        "item_name": item_name
+    }
+    # Remove if already exists
+    USER_FAVORITES["items"] = [f for f in USER_FAVORITES["items"] 
+                                if not (f["restaurant_id"] == restaurant_id and f["item_id"] == item_id)]
+    USER_FAVORITES["items"].append(favorite)
+
+def get_favorite_items():
+    """Get list of favorite items"""
+    return USER_FAVORITES["items"]
+
+def remove_favorite_item(restaurant_id: str, item_id: str):
+    """Remove an item from favorites"""
+    USER_FAVORITES["items"] = [f for f in USER_FAVORITES["items"] 
+                                if not (f["restaurant_id"] == restaurant_id and f["item_id"] == item_id)]
+
 # Mock Orders Storage (in-memory)
-ORDERS = {}
+MOCK_ORDERS = {}
 
 # Order Status Flow
 ORDER_STATUSES = ["pending", "confirmed", "preparing", "ready_for_pickup", "out_for_delivery", "delivered"]
@@ -1408,7 +1321,7 @@ def get_menu_by_restaurant_id(restaurant_id: str):
 
 def create_order(order_data: dict) -> dict:
     """Create a new order"""
-    order_id = f"order_{len(ORDERS) + 1:04d}"
+    order_id = f"order_{len(MOCK_ORDERS) + 1:04d}"
     
     order = {
         "id": order_id,
@@ -1439,27 +1352,27 @@ def create_order(order_data: dict) -> dict:
     order["tax"] = round(subtotal * 0.0875, 2)  # 8.75% tax
     order["total"] = round(order["subtotal"] + order["delivery_fee"] + order["tax"], 2)
     
-    ORDERS[order_id] = order
+    MOCK_ORDERS[order_id] = order
     return order
 
 def get_order_by_id(order_id: str):
     """Get order by ID"""
-    return ORDERS.get(order_id)
+    return MOCK_ORDERS.get(order_id)
 
 def update_order_status(order_id: str, status: str):
     """Update order status"""
-    if order_id in ORDERS:
-        ORDERS[order_id]["status"] = status
-        ORDERS[order_id]["updated_at"] = datetime.now().isoformat()
-        return ORDERS[order_id]
+    if order_id in MOCK_ORDERS:
+        MOCK_ORDERS[order_id]["status"] = status
+        MOCK_ORDERS[order_id]["updated_at"] = datetime.now().isoformat()
+        return MOCK_ORDERS[order_id]
     return None
 
 def process_payment(order_id: str, payment_method: dict):
     """Process payment for an order"""
-    if order_id in ORDERS:
-        ORDERS[order_id]["payment_status"] = "completed"
-        ORDERS[order_id]["payment_method"] = payment_method
-        ORDERS[order_id]["status"] = "confirmed"
+    if order_id in MOCK_ORDERS:
+        MOCK_ORDERS[order_id]["payment_status"] = "completed"
+        MOCK_ORDERS[order_id]["payment_method"] = payment_method
+        MOCK_ORDERS[order_id]["status"] = "confirmed"
         return {
             "success": True,
             "transaction_id": f"txn_{random.randint(100000, 999999)}",
