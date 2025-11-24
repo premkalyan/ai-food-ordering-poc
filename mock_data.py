@@ -372,6 +372,26 @@ RESTAURANTS = [
         "delivery_fee": 3.49,
         "is_open": True,
         "image_url": "https://example.com/lakeshore-chinese.jpg"
+    },
+    {
+        "id": "rest_019",
+        "name": "Chicago Tandoor",
+        "cuisine": "Indian",
+        "location": {
+            "address": "456 Michigan Ave, Chicago, IL 60611",
+            "city": "Chicago",
+            "state": "IL",
+            "zip": "60611",
+            "lat": 41.8902,
+            "lng": -87.6250
+        },
+        "rating": 4.7,
+        "price_range": "$$",
+        "delivery_time": "25-35 min",
+        "minimum_order": 20.00,
+        "delivery_fee": 3.99,
+        "is_open": True,
+        "image_url": "https://example.com/chicago-tandoor.jpg"
     }
 ]
 
@@ -1143,8 +1163,90 @@ MENUS = {
             }
         ]
     },
-    "rest_019": {  # Placeholder for future expansion
-        "categories": []
+    "rest_019": {  # Chicago Tandoor
+        "categories": [
+            {
+                "name": "Appetizers",
+                "items": [
+                    {
+                        "id": "item_801",
+                        "name": "Samosa (2 pieces)",
+                        "description": "Crispy pastry filled with spiced potatoes and peas",
+                        "price": 5.99,
+                        "vegetarian": True,
+                        "spicy": True
+                    },
+                    {
+                        "id": "item_802",
+                        "name": "Chicken Tikka",
+                        "description": "Marinated chicken pieces grilled in tandoor",
+                        "price": 9.99,
+                        "vegetarian": False,
+                        "spicy": True
+                    }
+                ]
+            },
+            {
+                "name": "Main Course",
+                "items": [
+                    {
+                        "id": "item_803",
+                        "name": "Chicken Tikka Masala",
+                        "description": "Grilled chicken in creamy tomato sauce",
+                        "price": 15.99,
+                        "vegetarian": False,
+                        "spicy": True,
+                        "popular": True
+                    },
+                    {
+                        "id": "item_804",
+                        "name": "Paneer Butter Masala",
+                        "description": "Cottage cheese in rich tomato cream sauce",
+                        "price": 14.99,
+                        "vegetarian": True,
+                        "spicy": False
+                    },
+                    {
+                        "id": "item_805",
+                        "name": "Chicken Biryani",
+                        "description": "Fragrant basmati rice with spiced chicken",
+                        "price": 16.99,
+                        "vegetarian": False,
+                        "spicy": True,
+                        "popular": True
+                    },
+                    {
+                        "id": "item_806",
+                        "name": "Lamb Rogan Josh",
+                        "description": "Tender lamb in aromatic curry sauce",
+                        "price": 18.99,
+                        "vegetarian": False,
+                        "spicy": True
+                    }
+                ]
+            },
+            {
+                "name": "Breads",
+                "items": [
+                    {
+                        "id": "item_807",
+                        "name": "Garlic Naan",
+                        "description": "Tandoor-baked flatbread with garlic",
+                        "price": 3.99,
+                        "vegetarian": True,
+                        "spicy": False
+                    },
+                    {
+                        "id": "item_808",
+                        "name": "Butter Naan",
+                        "description": "Classic tandoor-baked flatbread with butter",
+                        "price": 2.99,
+                        "vegetarian": True,
+                        "spicy": False
+                    }
+                ]
+            }
+        ]
     },
     "rest_020": {  # Placeholder for future expansion
         "categories": []
