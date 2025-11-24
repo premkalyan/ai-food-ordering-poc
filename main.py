@@ -398,16 +398,37 @@ async def get_cities():
 @app.get(
     "/api/v1/user/location",
     summary="Get user location",
-    description="Get user's current location (mock data)"
+    description="Get user's current location (simulated based on IP/context)"
 )
-async def get_user_location():
-    """Get user's current location (mock)"""
-    logger.info("Getting user location")
+async def get_user_location(city: Optional[str] = None):
+    """
+    Get user's current location (simulated).
+    In production, this would use IP geolocation or user profile.
+    For demo, returns San Francisco by default or specified city.
+    """
+    logger.info(f"Getting user location: {city if city else 'default'}")
+    
+    # If city specified, try to find a restaurant in that city
+    if city:
+        restaurants = get_restaurants_by_location(city=city)
+        if restaurants:
+            location = restaurants[0]["location"]
+            return {
+                "city": location["city"],
+                "state": location["state"],
+                "lat": location["lat"],
+                "lng": location["lng"],
+                "available": True
+            }
+    
+    # Default to San Francisco (where we have restaurants)
     return {
         "city": "San Francisco",
         "state": "CA",
         "lat": 37.7749,
-        "lng": -122.4194
+        "lng": -122.4194,
+        "available": True,
+        "note": "Demo location - in production, would use actual geolocation"
     }
 
 if __name__ == "__main__":
