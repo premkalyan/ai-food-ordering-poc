@@ -990,6 +990,155 @@ MENUS = {
                 ]
             }
         ]
+    },
+    "rest_016": {  # Chicago Deep Dish Co
+        "categories": [
+            {
+                "name": "Deep Dish Pizza",
+                "items": [
+                    {
+                        "id": "item_501",
+                        "name": "Classic Chicago Deep Dish",
+                        "description": "Traditional deep dish with mozzarella, sausage, and chunky tomato sauce",
+                        "price": 24.99,
+                        "vegetarian": False,
+                        "popular": True,
+                        "image_url": "https://example.com/classic-deep-dish.jpg"
+                    },
+                    {
+                        "id": "item_502",
+                        "name": "Vegetarian Deep Dish",
+                        "description": "Spinach, mushrooms, peppers, and mozzarella",
+                        "price": 22.99,
+                        "vegetarian": True,
+                        "image_url": "https://example.com/veggie-deep-dish.jpg"
+                    },
+                    {
+                        "id": "item_503",
+                        "name": "Meat Lovers Deep Dish",
+                        "description": "Sausage, pepperoni, bacon, and ham",
+                        "price": 26.99,
+                        "vegetarian": False,
+                        "popular": True,
+                        "image_url": "https://example.com/meat-lovers.jpg"
+                    }
+                ]
+            },
+            {
+                "name": "Thin Crust Pizza",
+                "items": [
+                    {
+                        "id": "item_504",
+                        "name": "Margherita",
+                        "description": "Fresh mozzarella, basil, and tomato sauce",
+                        "price": 16.99,
+                        "vegetarian": True,
+                        "image_url": "https://example.com/margherita.jpg"
+                    },
+                    {
+                        "id": "item_505",
+                        "name": "Pepperoni",
+                        "description": "Classic pepperoni with mozzarella",
+                        "price": 18.99,
+                        "vegetarian": False,
+                        "image_url": "https://example.com/pepperoni.jpg"
+                    }
+                ]
+            },
+            {
+                "name": "Appetizers",
+                "items": [
+                    {
+                        "id": "item_506",
+                        "name": "Garlic Bread",
+                        "description": "Toasted bread with garlic butter and parmesan",
+                        "price": 6.99,
+                        "vegetarian": True,
+                        "image_url": "https://example.com/garlic-bread.jpg"
+                    },
+                    {
+                        "id": "item_507",
+                        "name": "Mozzarella Sticks",
+                        "description": "Breaded mozzarella with marinara sauce",
+                        "price": 8.99,
+                        "vegetarian": True,
+                        "image_url": "https://example.com/mozzarella-sticks.jpg"
+                    },
+                    {
+                        "id": "item_508",
+                        "name": "Buffalo Wings (8pc)",
+                        "description": "Spicy buffalo wings with ranch dressing",
+                        "price": 12.99,
+                        "vegetarian": False,
+                        "popular": True,
+                        "image_url": "https://example.com/buffalo-wings.jpg"
+                    }
+                ]
+            },
+            {
+                "name": "Salads",
+                "items": [
+                    {
+                        "id": "item_509",
+                        "name": "Caesar Salad",
+                        "description": "Romaine lettuce, parmesan, croutons, caesar dressing",
+                        "price": 9.99,
+                        "vegetarian": True,
+                        "image_url": "https://example.com/caesar-salad.jpg"
+                    },
+                    {
+                        "id": "item_510",
+                        "name": "House Salad",
+                        "description": "Mixed greens, tomatoes, cucumbers, italian dressing",
+                        "price": 7.99,
+                        "vegetarian": True,
+                        "image_url": "https://example.com/house-salad.jpg"
+                    }
+                ]
+            },
+            {
+                "name": "Desserts",
+                "items": [
+                    {
+                        "id": "item_511",
+                        "name": "Tiramisu",
+                        "description": "Classic Italian dessert with espresso and mascarpone",
+                        "price": 7.99,
+                        "vegetarian": True,
+                        "image_url": "https://example.com/tiramisu.jpg"
+                    },
+                    {
+                        "id": "item_512",
+                        "name": "Cannoli",
+                        "description": "Crispy pastry shell with sweet ricotta filling",
+                        "price": 6.99,
+                        "vegetarian": True,
+                        "image_url": "https://example.com/cannoli.jpg"
+                    }
+                ]
+            },
+            {
+                "name": "Beverages",
+                "items": [
+                    {
+                        "id": "item_513",
+                        "name": "Soft Drink",
+                        "description": "Coke, Diet Coke, Sprite, or Fanta",
+                        "price": 2.99,
+                        "vegetarian": True,
+                        "image_url": "https://example.com/soda.jpg"
+                    },
+                    {
+                        "id": "item_514",
+                        "name": "Iced Tea",
+                        "description": "Freshly brewed iced tea",
+                        "price": 2.99,
+                        "vegetarian": True,
+                        "image_url": "https://example.com/iced-tea.jpg"
+                    }
+                ]
+            }
+        ]
     }
 }
 
