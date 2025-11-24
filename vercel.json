@@ -11,10 +11,6 @@
       "src": "/(.*)",
       "dest": "main.py"
     }
-  ],
-  "env": {
-    "API_KEY": "@api_key",
-    "LOG_LEVEL": "INFO"
-  }
+  ]
 }
 
