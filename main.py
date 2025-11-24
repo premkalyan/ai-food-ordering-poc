@@ -317,6 +317,11 @@ async def get_menu(restaurant_id: str):
 
 # Order Endpoints
 
+@app.options("/api/v1/orders/create")
+async def create_order_options():
+    """Handle OPTIONS preflight for create order"""
+    return {"message": "OK"}
+
 @app.post(
     "/api/v1/orders/create",
     response_model=Order,
@@ -332,18 +337,30 @@ async def create_new_order(order_request: CreateOrderRequest):
     - **delivery_address**: Delivery location
     - **special_instructions**: Optional special requests
     """
-    logger.info(f"Creating order: restaurant={order_request.restaurant_id}, items={len(order_request.items)}")
-    
-    # Verify restaurant exists
-    restaurant = get_restaurant_by_id(order_request.restaurant_id)
-    if not restaurant:
-        raise HTTPException(status_code=404, detail="Restaurant not found")
-    
-    # Create order
-    order = create_order(order_request.dict())
-    
-    logger.info(f"Order created: {order['id']}, total=${order['total']}")
-    return order
+    try:
+        logger.info(f"[CREATE_ORDER] START: restaurant={order_request.restaurant_id}, items={len(order_request.items)}")
+        
+        # Verify restaurant exists
+        restaurant = get_restaurant_by_id(order_request.restaurant_id)
+        if not restaurant:
+            logger.error(f"[CREATE_ORDER] Restaurant not found: {order_request.restaurant_id}")
+            raise HTTPException(status_code=404, detail="Restaurant not found")
+        
+        logger.info(f"[CREATE_ORDER] Restaurant found: {restaurant['name']}")
+        
+        # Create order
+        order_data = order_request.dict()
+        logger.info(f"[CREATE_ORDER] Creating order with data: {json.dumps(order_data, indent=2)}")
+        
+        order = create_order(order_data)
+        
+        logger.info(f"[CREATE_ORDER] SUCCESS: {order['id']}, total=${order['total']}")
+        return order
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"[CREATE_ORDER] ERROR: {str(e)}", exc_info=True)
+        raise HTTPException(status_code=500, detail=f"Failed to create order: {str(e)}")
 
 @app.get(
     "/api/v1/orders/{order_id}",
