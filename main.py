@@ -20,7 +20,13 @@ from mock_data import (
     update_order_status,
     process_payment,
     CUISINES,
-    CITIES
+    CITIES,
+    get_favorite_restaurants,
+    add_favorite_restaurant,
+    remove_favorite_restaurant,
+    get_favorite_items,
+    add_favorite_item,
+    remove_favorite_item
 )
 
 # Configure logging
@@ -430,6 +436,86 @@ async def get_user_location(city: Optional[str] = None):
         "available": True,
         "note": "Demo location - in production, would use actual geolocation"
     }
+
+# Favorites Endpoints
+
+@app.get(
+    "/api/v1/favorites/restaurants",
+    response_model=List[Restaurant],
+    summary="Get favorite restaurants",
+    description="Get user's saved favorite restaurants"
+)
+async def get_favorites():
+    """Get user's favorite restaurants"""
+    logger.info("Getting favorite restaurants")
+    favorites = get_favorite_restaurants()
+    return favorites
+
+@app.post(
+    "/api/v1/favorites/restaurants/{restaurant_id}",
+    summary="Add restaurant to favorites",
+    description="Save a restaurant to user's favorites"
+)
+async def add_restaurant_to_favorites(restaurant_id: str):
+    """Add restaurant to favorites"""
+    logger.info(f"Adding restaurant to favorites: {restaurant_id}")
+    result = add_favorite_restaurant(restaurant_id)
+    if not result["success"]:
+        raise HTTPException(status_code=400, detail=result["message"])
+    return result
+
+@app.delete(
+    "/api/v1/favorites/restaurants/{restaurant_id}",
+    summary="Remove restaurant from favorites",
+    description="Remove a restaurant from user's favorites"
+)
+async def remove_restaurant_from_favorites(restaurant_id: str):
+    """Remove restaurant from favorites"""
+    logger.info(f"Removing restaurant from favorites: {restaurant_id}")
+    result = remove_favorite_restaurant(restaurant_id)
+    return result
+
+@app.get(
+    "/api/v1/favorites/items",
+    summary="Get favorite menu items",
+    description="Get user's saved favorite menu items across all restaurants"
+)
+async def get_favorite_menu_items():
+    """Get user's favorite menu items"""
+    logger.info("Getting favorite menu items")
+    favorites = get_favorite_items()
+    return {"favorites": favorites}
+
+@app.post(
+    "/api/v1/favorites/items",
+    summary="Add menu item to favorites",
+    description="Save a menu item to user's favorites"
+)
+async def add_menu_item_to_favorites(
+    restaurant_id: str,
+    item_id: str,
+    item_name: str
+):
+    """Add menu item to favorites"""
+    logger.info(f"Adding item to favorites: {item_name} from {restaurant_id}")
+    result = add_favorite_item(restaurant_id, item_id, item_name)
+    if not result["success"]:
+        raise HTTPException(status_code=400, detail=result["message"])
+    return result
+
+@app.delete(
+    "/api/v1/favorites/items",
+    summary="Remove menu item from favorites",
+    description="Remove a menu item from user's favorites"
+)
+async def remove_menu_item_from_favorites(
+    restaurant_id: str,
+    item_id: str
+):
+    """Remove menu item from favorites"""
+    logger.info(f"Removing item from favorites: {item_id} from {restaurant_id}")
+    result = remove_favorite_item(restaurant_id, item_id)
+    return result
 
 if __name__ == "__main__":
     import uvicorn

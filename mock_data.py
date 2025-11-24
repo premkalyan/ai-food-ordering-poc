@@ -168,6 +168,170 @@ RESTAURANTS = [
         "delivery_fee": 3.99,
         "is_open": True,
         "image_url": "https://example.com/seoul-kitchen.jpg"
+    },
+    # Bangalore Restaurants
+    {
+        "id": "rest_009",
+        "name": "Spice Garden Indian Kitchen",
+        "cuisine": "Indian",
+        "location": {
+            "address": "MG Road, Bangalore, KA 560001",
+            "city": "Bangalore",
+            "state": "KA",
+            "zip": "560001",
+            "lat": 12.9716,
+            "lng": 77.5946
+        },
+        "rating": 4.6,
+        "price_range": "$$",
+        "delivery_time": "25-40 min",
+        "minimum_order": 200.00,
+        "delivery_fee": 40.00,
+        "is_open": True,
+        "image_url": "https://example.com/spice-garden.jpg"
+    },
+    {
+        "id": "rest_010",
+        "name": "Bangalore Biryani House",
+        "cuisine": "Indian",
+        "location": {
+            "address": "Indiranagar, Bangalore, KA 560038",
+            "city": "Bangalore",
+            "state": "KA",
+            "zip": "560038",
+            "lat": 12.9716,
+            "lng": 77.6412
+        },
+        "rating": 4.7,
+        "price_range": "$$",
+        "delivery_time": "30-45 min",
+        "minimum_order": 250.00,
+        "delivery_fee": 50.00,
+        "is_open": True,
+        "image_url": "https://example.com/biryani-house.jpg"
+    },
+    {
+        "id": "rest_011",
+        "name": "Dosa Corner",
+        "cuisine": "Indian",
+        "location": {
+            "address": "Koramangala, Bangalore, KA 560034",
+            "city": "Bangalore",
+            "state": "KA",
+            "zip": "560034",
+            "lat": 12.9352,
+            "lng": 77.6245
+        },
+        "rating": 4.5,
+        "price_range": "$",
+        "delivery_time": "20-30 min",
+        "minimum_order": 150.00,
+        "delivery_fee": 30.00,
+        "is_open": True,
+        "image_url": "https://example.com/dosa-corner.jpg"
+    },
+    # New York Restaurants
+    {
+        "id": "rest_012",
+        "name": "Manhattan Tandoor",
+        "cuisine": "Indian",
+        "location": {
+            "address": "123 Lexington Ave, New York, NY 10016",
+            "city": "New York",
+            "state": "NY",
+            "zip": "10016",
+            "lat": 40.7128,
+            "lng": -74.0060
+        },
+        "rating": 4.5,
+        "price_range": "$$$",
+        "delivery_time": "35-50 min",
+        "minimum_order": 25.00,
+        "delivery_fee": 5.99,
+        "is_open": True,
+        "image_url": "https://example.com/manhattan-tandoor.jpg"
+    },
+    {
+        "id": "rest_013",
+        "name": "Brooklyn Pizza Palace",
+        "cuisine": "Italian",
+        "location": {
+            "address": "456 Bedford Ave, Brooklyn, NY 11211",
+            "city": "New York",
+            "state": "NY",
+            "zip": "11211",
+            "lat": 40.7081,
+            "lng": -73.9571
+        },
+        "rating": 4.6,
+        "price_range": "$$",
+        "delivery_time": "25-35 min",
+        "minimum_order": 20.00,
+        "delivery_fee": 4.99,
+        "is_open": True,
+        "image_url": "https://example.com/brooklyn-pizza.jpg"
+    },
+    # Los Angeles Restaurants
+    {
+        "id": "rest_014",
+        "name": "LA Sushi Bar",
+        "cuisine": "Japanese",
+        "location": {
+            "address": "789 Santa Monica Blvd, Los Angeles, CA 90046",
+            "city": "Los Angeles",
+            "state": "CA",
+            "zip": "90046",
+            "lat": 34.0522,
+            "lng": -118.2437
+        },
+        "rating": 4.7,
+        "price_range": "$$$",
+        "delivery_time": "40-55 min",
+        "minimum_order": 30.00,
+        "delivery_fee": 6.99,
+        "is_open": True,
+        "image_url": "https://example.com/la-sushi.jpg"
+    },
+    {
+        "id": "rest_015",
+        "name": "Hollywood Tacos",
+        "cuisine": "Mexican",
+        "location": {
+            "address": "321 Hollywood Blvd, Los Angeles, CA 90028",
+            "city": "Los Angeles",
+            "state": "CA",
+            "zip": "90028",
+            "lat": 34.0928,
+            "lng": -118.3287
+        },
+        "rating": 4.4,
+        "price_range": "$$",
+        "delivery_time": "20-30 min",
+        "minimum_order": 15.00,
+        "delivery_fee": 3.99,
+        "is_open": True,
+        "image_url": "https://example.com/hollywood-tacos.jpg"
+    },
+    # Chicago Restaurants
+    {
+        "id": "rest_016",
+        "name": "Chicago Deep Dish Co",
+        "cuisine": "Italian",
+        "location": {
+            "address": "555 Michigan Ave, Chicago, IL 60611",
+            "city": "Chicago",
+            "state": "IL",
+            "zip": "60611",
+            "lat": 41.8781,
+            "lng": -87.6298
+        },
+        "rating": 4.8,
+        "price_range": "$$$",
+        "delivery_time": "45-60 min",
+        "minimum_order": 25.00,
+        "delivery_fee": 5.99,
+        "is_open": True,
+        "image_url": "https://example.com/chicago-pizza.jpg"
     }
 ]
 
@@ -697,4 +861,61 @@ CUISINES = list(set(r["cuisine"] for r in RESTAURANTS))
 
 # Available cities
 CITIES = list(set(r["location"]["city"] for r in RESTAURANTS))
+
+# User Favorites (in-memory storage)
+USER_FAVORITES = {
+    "restaurants": [],  # List of restaurant IDs
+    "items": []  # List of {restaurant_id, item_id, item_name}
+}
+
+def get_favorite_restaurants():
+    """Get user's favorite restaurants"""
+    favorite_ids = USER_FAVORITES["restaurants"]
+    return [r for r in RESTAURANTS if r["id"] in favorite_ids]
+
+def add_favorite_restaurant(restaurant_id: str):
+    """Add restaurant to favorites"""
+    if restaurant_id not in USER_FAVORITES["restaurants"]:
+        # Verify restaurant exists
+        restaurant = get_restaurant_by_id(restaurant_id)
+        if restaurant:
+            USER_FAVORITES["restaurants"].append(restaurant_id)
+            return {"success": True, "message": f"Added {restaurant['name']} to favorites"}
+    return {"success": False, "message": "Restaurant already in favorites or not found"}
+
+def remove_favorite_restaurant(restaurant_id: str):
+    """Remove restaurant from favorites"""
+    if restaurant_id in USER_FAVORITES["restaurants"]:
+        USER_FAVORITES["restaurants"].remove(restaurant_id)
+        return {"success": True, "message": "Removed from favorites"}
+    return {"success": False, "message": "Restaurant not in favorites"}
+
+def get_favorite_items():
+    """Get user's favorite menu items"""
+    return USER_FAVORITES["items"]
+
+def add_favorite_item(restaurant_id: str, item_id: str, item_name: str):
+    """Add menu item to favorites"""
+    favorite_item = {
+        "restaurant_id": restaurant_id,
+        "item_id": item_id,
+        "item_name": item_name
+    }
+    
+    # Check if already in favorites
+    existing = [f for f in USER_FAVORITES["items"] 
+                if f["restaurant_id"] == restaurant_id and f["item_id"] == item_id]
+    
+    if not existing:
+        USER_FAVORITES["items"].append(favorite_item)
+        return {"success": True, "message": f"Added {item_name} to favorites"}
+    return {"success": False, "message": "Item already in favorites"}
+
+def remove_favorite_item(restaurant_id: str, item_id: str):
+    """Remove menu item from favorites"""
+    USER_FAVORITES["items"] = [
+        f for f in USER_FAVORITES["items"]
+        if not (f["restaurant_id"] == restaurant_id and f["item_id"] == item_id)
+    ]
+    return {"success": True, "message": "Removed from favorites"}
 
