@@ -2,70 +2,61 @@
   "openapi": "3.1.0",
   "info": {
     "title": "AI Food Ordering API",
-    "description": "Restaurant ordering platform with menu browsing and order management",
+    "description": "Mock API for ChatGPT Custom GPT integration - Restaurant ordering platform",
     "version": "1.0.0"
   },
   "servers": [
     {
       "url": "https://ai-food-ordering-poc.vercel.app",
-      "description": "Production server"
+      "description": "Production server (Vercel)"
     }
   ],
   "paths": {
-    "/api/v1/cities": {
+    "/": {
       "get": {
-        "summary": "Get available cities",
-        "description": "Returns list of all cities where restaurants are available",
-        "operationId": "getCities",
+        "summary": "Root",
+        "description": "Root endpoint with API information",
+        "operationId": "root__get",
         "responses": {
           "200": {
-            "description": "List of cities with prompt",
+            "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "cities": {
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      }
-                    },
-                    "prompt": {
-                      "type": "string"
-                    }
-                  }
-                }
+                "schema": {}
               }
             }
           }
         }
       }
     },
-    "/api/v1/cuisines": {
+    "/openapi-production.json": {
       "get": {
-        "summary": "Get available cuisines",
-        "description": "Returns list of all available cuisine types",
-        "operationId": "getCuisines",
+        "summary": "Get Production Openapi",
+        "description": "Serve production-only OpenAPI spec (no localhost)",
+        "operationId": "get_production_openapi_openapi_production_json_get",
         "responses": {
           "200": {
-            "description": "List of cuisines with prompt",
+            "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "cuisines": {
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      }
-                    },
-                    "prompt": {
-                      "type": "string"
-                    }
-                  }
-                }
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/health": {
+      "get": {
+        "summary": "Health Check",
+        "description": "Health check endpoint",
+        "operationId": "health_check_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
               }
             }
           }
@@ -75,64 +66,135 @@
     "/api/v1/restaurants/search": {
       "get": {
         "summary": "Search restaurants",
-        "description": "Search for restaurants by city and/or cuisine",
-        "operationId": "searchRestaurants",
+        "description": "Search for restaurants by location, cuisine, or coordinates. Returns list of available restaurants.",
+        "operationId": "search_restaurants_api_v1_restaurants_search_get",
         "parameters": [
           {
             "name": "city",
             "in": "query",
             "required": false,
             "schema": {
-              "type": "string"
-            },
-            "description": "Filter by city (e.g., Bangalore, San Francisco)"
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "City"
+            }
           },
           {
             "name": "cuisine",
             "in": "query",
             "required": false,
             "schema": {
-              "type": "string"
-            },
-            "description": "Filter by cuisine (e.g., Indian, Chinese, Italian)"
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Cuisine"
+            }
+          },
+          {
+            "name": "lat",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Lat"
+            }
+          },
+          {
+            "name": "lng",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Lng"
+            }
           }
         ],
         "responses": {
           "200": {
-            "description": "List of restaurants",
+            "description": "Successful Response",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "array",
                   "items": {
-                    "type": "object",
-                    "properties": {
-                      "id": {
-                        "type": "string"
-                      },
-                      "name": {
-                        "type": "string"
-                      },
-                      "cuisine": {
-                        "type": "string"
-                      },
-                      "rating": {
-                        "type": "number"
-                      },
-                      "price_range": {
-                        "type": "string"
-                      },
-                      "delivery_time": {
-                        "type": "string"
-                      },
-                      "minimum_order": {
-                        "type": "number"
-                      },
-                      "delivery_fee": {
-                        "type": "number"
-                      }
-                    }
-                  }
+                    "$ref": "#/components/schemas/Restaurant"
+                  },
+                  "title": "Response Search Restaurants Api V1 Restaurants Search Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/restaurants/{restaurant_id}": {
+      "get": {
+        "summary": "Get restaurant details",
+        "description": "Get detailed information about a specific restaurant",
+        "operationId": "get_restaurant_api_v1_restaurants__restaurant_id__get",
+        "parameters": [
+          {
+            "name": "restaurant_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Restaurant Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Restaurant"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
                 }
               }
             }
@@ -143,68 +205,36 @@
     "/api/v1/restaurants/{restaurant_id}/menu": {
       "get": {
         "summary": "Get restaurant menu",
-        "description": "Returns complete menu with categories and items for a specific restaurant",
-        "operationId": "getRestaurantMenu",
+        "description": "Get the complete menu for a specific restaurant with all items and prices",
+        "operationId": "get_menu_api_v1_restaurants__restaurant_id__menu_get",
         "parameters": [
           {
             "name": "restaurant_id",
             "in": "path",
             "required": true,
             "schema": {
-              "type": "string"
-            },
-            "description": "Restaurant ID (e.g., rest_009)"
+              "type": "string",
+              "title": "Restaurant Id"
+            }
           }
         ],
         "responses": {
           "200": {
-            "description": "Restaurant menu with categories",
+            "description": "Successful Response",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "categories": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "name": {
-                            "type": "string"
-                          },
-                          "items": {
-                            "type": "array",
-                            "items": {
-                              "type": "object",
-                              "properties": {
-                                "id": {
-                                  "type": "string"
-                                },
-                                "name": {
-                                  "type": "string"
-                                },
-                                "description": {
-                                  "type": "string"
-                                },
-                                "price": {
-                                  "type": "number"
-                                },
-                                "vegetarian": {
-                                  "type": "boolean"
-                                },
-                                "spicy": {
-                                  "type": "boolean"
-                                },
-                                "popular": {
-                                  "type": "boolean"
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
+                  "$ref": "#/components/schemas/Menu"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
                 }
               }
             }
@@ -214,87 +244,76 @@
     },
     "/api/v1/orders/create": {
       "post": {
-        "summary": "Create order",
-        "description": "Create a new food order",
-        "operationId": "createOrder",
+        "summary": "Create new order",
+        "description": "Create a new food order with items, delivery address, and special instructions",
+        "operationId": "create_new_order_api_v1_orders_create_post",
         "requestBody": {
-          "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "required": [
-                  "restaurant_id",
-                  "items",
-                  "delivery_address"
-                ],
-                "properties": {
-                  "restaurant_id": {
-                    "type": "string"
-                  },
-                  "items": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "item_id": {
-                          "type": "string"
-                        },
-                        "name": {
-                          "type": "string"
-                        },
-                        "price": {
-                          "type": "number"
-                        },
-                        "quantity": {
-                          "type": "integer"
-                        }
-                      }
-                    }
-                  },
-                  "delivery_address": {
-                    "type": "object",
-                    "properties": {
-                      "address": {
-                        "type": "string"
-                      },
-                      "city": {
-                        "type": "string"
-                      },
-                      "state": {
-                        "type": "string"
-                      },
-                      "zip": {
-                        "type": "string"
-                      }
-                    }
-                  }
+                "$ref": "#/components/schemas/CreateOrderRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Order"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
                 }
               }
             }
           }
-        },
+        }
+      }
+    },
+    "/api/v1/orders/{order_id}": {
+      "get": {
+        "summary": "Get order status",
+        "description": "Get current status and details of an order",
+        "operationId": "get_order_api_v1_orders__order_id__get",
+        "parameters": [
+          {
+            "name": "order_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Order Id"
+            }
+          }
+        ],
         "responses": {
           "200": {
-            "description": "Order created successfully",
+            "description": "Successful Response",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "string"
-                    },
-                    "status": {
-                      "type": "string"
-                    },
-                    "total": {
-                      "type": "number"
-                    },
-                    "estimated_delivery": {
-                      "type": "string"
-                    }
-                  }
+                  "$ref": "#/components/schemas/Order"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
                 }
               }
             }
@@ -306,14 +325,15 @@
       "post": {
         "summary": "Process payment",
         "description": "Process payment for an order",
-        "operationId": "processPayment",
+        "operationId": "process_order_payment_api_v1_orders__order_id__payment_post",
         "parameters": [
           {
             "name": "order_id",
             "in": "path",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "title": "Order Id"
             }
           }
         ],
@@ -322,39 +342,28 @@
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "payment_method": {
-                    "type": "object",
-                    "properties": {
-                      "type": {
-                        "type": "string"
-                      },
-                      "last_four": {
-                        "type": "string"
-                      }
-                    }
-                  }
-                }
+                "$ref": "#/components/schemas/PaymentRequest"
               }
             }
           }
         },
         "responses": {
           "200": {
-            "description": "Payment processed",
+            "description": "Successful Response",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean"
-                    },
-                    "transaction_id": {
-                      "type": "string"
-                    }
-                  }
+                  "$ref": "#/components/schemas/PaymentResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
                 }
               }
             }
@@ -365,36 +374,211 @@
     "/api/v1/orders/{order_id}/track": {
       "get": {
         "summary": "Track order",
-        "description": "Get current status and tracking info for an order",
-        "operationId": "trackOrder",
+        "description": "Get real-time order tracking information with automatic status progression",
+        "operationId": "track_order_api_v1_orders__order_id__track_get",
         "parameters": [
           {
             "name": "order_id",
             "in": "path",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "title": "Order Id"
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "Order tracking information",
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "string"
-                    },
-                    "status": {
-                      "type": "string"
-                    },
-                    "estimated_delivery": {
-                      "type": "string"
-                    }
-                  }
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/orders/{order_id}/status": {
+      "patch": {
+        "summary": "Update order status",
+        "description": "Update the status of an order (for testing/simulation)",
+        "operationId": "update_order_api_v1_orders__order_id__status_patch",
+        "parameters": [
+          {
+            "name": "order_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Order Id"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Status"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Order"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/cuisines": {
+      "get": {
+        "summary": "Get available cuisines",
+        "description": "Get list of all available cuisine types in a structured format",
+        "operationId": "get_cuisines_api_v1_cuisines_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/cities": {
+      "get": {
+        "summary": "Get available cities",
+        "description": "Get list of all cities with restaurants in a structured format for better UX",
+        "operationId": "get_cities_api_v1_cities_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/user/location": {
+      "get": {
+        "summary": "Get user location",
+        "description": "Get user's current location (simulated based on IP/context)",
+        "operationId": "get_user_location_api_v1_user_location_get",
+        "parameters": [
+          {
+            "name": "city",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "City"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/search/intelligent": {
+      "get": {
+        "summary": "Intelligent search with natural language",
+        "description": "Search restaurants using complex natural language queries with multiple constraints",
+        "operationId": "intelligent_search_api_v1_search_intelligent_get",
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "test",
+              "title": "Query"
+            }
+          },
+          {
+            "name": "location",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "San Francisco",
+              "title": "Location"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
                 }
               }
             }
@@ -405,18 +589,19 @@
     "/api/v1/favorites/restaurants": {
       "get": {
         "summary": "Get favorite restaurants",
-        "description": "Get user's favorite restaurants",
-        "operationId": "getFavoriteRestaurants",
+        "description": "Get user's saved favorite restaurants",
+        "operationId": "get_favorites_api_v1_favorites_restaurants_get",
         "responses": {
           "200": {
-            "description": "List of favorite restaurants",
+            "description": "Successful Response",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
                   "items": {
-                    "type": "object"
-                  }
+                    "$ref": "#/components/schemas/Restaurant"
+                  },
+                  "type": "array",
+                  "title": "Response Get Favorites Api V1 Favorites Restaurants Get"
                 }
               }
             }
@@ -427,33 +612,186 @@
     "/api/v1/favorites/restaurants/{restaurant_id}": {
       "post": {
         "summary": "Add restaurant to favorites",
-        "description": "Add a restaurant to user's favorites",
-        "operationId": "addFavoriteRestaurant",
+        "description": "Save a restaurant to user's favorites",
+        "operationId": "add_restaurant_to_favorites_api_v1_favorites_restaurants__restaurant_id__post",
         "parameters": [
           {
             "name": "restaurant_id",
             "in": "path",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "title": "Restaurant Id"
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "Restaurant added to favorites",
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean"
-                    },
-                    "message": {
-                      "type": "string"
-                    }
-                  }
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Remove restaurant from favorites",
+        "description": "Remove a restaurant from user's favorites",
+        "operationId": "remove_restaurant_from_favorites_api_v1_favorites_restaurants__restaurant_id__delete",
+        "parameters": [
+          {
+            "name": "restaurant_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Restaurant Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/favorites/items": {
+      "get": {
+        "summary": "Get favorite menu items",
+        "description": "Get user's saved favorite menu items across all restaurants",
+        "operationId": "get_favorite_menu_items_api_v1_favorites_items_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Add menu item to favorites",
+        "description": "Save a menu item to user's favorites",
+        "operationId": "add_menu_item_to_favorites_api_v1_favorites_items_post",
+        "parameters": [
+          {
+            "name": "restaurant_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Restaurant Id"
+            }
+          },
+          {
+            "name": "item_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Item Id"
+            }
+          },
+          {
+            "name": "item_name",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Item Name"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Remove menu item from favorites",
+        "description": "Remove a menu item from user's favorites",
+        "operationId": "remove_menu_item_from_favorites_api_v1_favorites_items_delete",
+        "parameters": [
+          {
+            "name": "restaurant_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Restaurant Id"
+            }
+          },
+          {
+            "name": "item_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Item Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
                 }
               }
             }
@@ -461,6 +799,522 @@
         }
       }
     }
+  },
+  "components": {
+    "schemas": {
+      "CreateOrderRequest": {
+        "properties": {
+          "restaurant_id": {
+            "type": "string",
+            "title": "Restaurant Id"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/OrderItem"
+            },
+            "type": "array",
+            "title": "Items"
+          },
+          "delivery_address": {
+            "$ref": "#/components/schemas/Location"
+          },
+          "special_instructions": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Special Instructions"
+          }
+        },
+        "type": "object",
+        "required": [
+          "restaurant_id",
+          "items",
+          "delivery_address"
+        ],
+        "title": "CreateOrderRequest"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "Location": {
+        "properties": {
+          "address": {
+            "type": "string",
+            "title": "Address"
+          },
+          "city": {
+            "type": "string",
+            "title": "City"
+          },
+          "state": {
+            "type": "string",
+            "title": "State"
+          },
+          "zip": {
+            "type": "string",
+            "title": "Zip"
+          },
+          "lat": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Lat"
+          },
+          "lng": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Lng"
+          }
+        },
+        "type": "object",
+        "required": [
+          "address",
+          "city",
+          "state",
+          "zip"
+        ],
+        "title": "Location"
+      },
+      "Menu": {
+        "properties": {
+          "categories": {
+            "items": {
+              "$ref": "#/components/schemas/MenuCategory"
+            },
+            "type": "array",
+            "title": "Categories"
+          }
+        },
+        "type": "object",
+        "required": [
+          "categories"
+        ],
+        "title": "Menu"
+      },
+      "MenuCategory": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/MenuItem"
+            },
+            "type": "array",
+            "title": "Items"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "items"
+        ],
+        "title": "MenuCategory"
+      },
+      "MenuItem": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "description": {
+            "type": "string",
+            "title": "Description"
+          },
+          "price": {
+            "type": "number",
+            "title": "Price"
+          },
+          "vegetarian": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Vegetarian",
+            "default": false
+          },
+          "spicy": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Spicy",
+            "default": false
+          },
+          "popular": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Popular",
+            "default": false
+          },
+          "image_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Image Url"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "description",
+          "price"
+        ],
+        "title": "MenuItem"
+      },
+      "Order": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "restaurant_id": {
+            "type": "string",
+            "title": "Restaurant Id"
+          },
+          "restaurant_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Restaurant Name"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/OrderItem"
+            },
+            "type": "array",
+            "title": "Items"
+          },
+          "subtotal": {
+            "type": "number",
+            "title": "Subtotal"
+          },
+          "delivery_fee": {
+            "type": "number",
+            "title": "Delivery Fee"
+          },
+          "tax": {
+            "type": "number",
+            "title": "Tax"
+          },
+          "total": {
+            "type": "number",
+            "title": "Total"
+          },
+          "delivery_address": {
+            "$ref": "#/components/schemas/Location"
+          },
+          "special_instructions": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Special Instructions"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "created_at": {
+            "type": "string",
+            "title": "Created At"
+          },
+          "estimated_delivery": {
+            "type": "string",
+            "title": "Estimated Delivery"
+          },
+          "payment_status": {
+            "type": "string",
+            "title": "Payment Status"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "restaurant_id",
+          "restaurant_name",
+          "items",
+          "subtotal",
+          "delivery_fee",
+          "tax",
+          "total",
+          "delivery_address",
+          "special_instructions",
+          "status",
+          "created_at",
+          "estimated_delivery",
+          "payment_status"
+        ],
+        "title": "Order"
+      },
+      "OrderItem": {
+        "properties": {
+          "item_id": {
+            "type": "string",
+            "title": "Item Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "price": {
+            "type": "number",
+            "title": "Price"
+          },
+          "quantity": {
+            "type": "integer",
+            "title": "Quantity",
+            "default": 1
+          },
+          "special_instructions": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Special Instructions"
+          }
+        },
+        "type": "object",
+        "required": [
+          "item_id",
+          "name",
+          "price"
+        ],
+        "title": "OrderItem"
+      },
+      "PaymentMethod": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "title": "Type",
+            "description": "Payment type: credit_card, debit_card, paypal, apple_pay"
+          },
+          "last_four": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Four",
+            "description": "Last 4 digits of card"
+          }
+        },
+        "type": "object",
+        "required": [
+          "type"
+        ],
+        "title": "PaymentMethod"
+      },
+      "PaymentRequest": {
+        "properties": {
+          "payment_method": {
+            "$ref": "#/components/schemas/PaymentMethod"
+          }
+        },
+        "type": "object",
+        "required": [
+          "payment_method"
+        ],
+        "title": "PaymentRequest"
+      },
+      "PaymentResponse": {
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "title": "Success"
+          },
+          "transaction_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Transaction Id"
+          },
+          "message": {
+            "type": "string",
+            "title": "Message"
+          }
+        },
+        "type": "object",
+        "required": [
+          "success",
+          "transaction_id",
+          "message"
+        ],
+        "title": "PaymentResponse"
+      },
+      "Restaurant": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "cuisine": {
+            "type": "string",
+            "title": "Cuisine"
+          },
+          "location": {
+            "$ref": "#/components/schemas/Location"
+          },
+          "rating": {
+            "type": "number",
+            "title": "Rating"
+          },
+          "price_range": {
+            "type": "string",
+            "title": "Price Range"
+          },
+          "delivery_time": {
+            "type": "string",
+            "title": "Delivery Time"
+          },
+          "minimum_order": {
+            "type": "number",
+            "title": "Minimum Order"
+          },
+          "delivery_fee": {
+            "type": "number",
+            "title": "Delivery Fee"
+          },
+          "is_open": {
+            "type": "boolean",
+            "title": "Is Open"
+          },
+          "image_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Image Url"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "cuisine",
+          "location",
+          "rating",
+          "price_range",
+          "delivery_time",
+          "minimum_order",
+          "delivery_fee",
+          "is_open"
+        ],
+        "title": "Restaurant"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      }
+    }
   }
 }
-
