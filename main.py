@@ -690,36 +690,37 @@ def extract_max_delivery_time(delivery_time_str: str) -> int:
 
 def filter_menu_items_by_query(parsed: ParsedQuery, menu: Dict) -> List[Dict]:
     """
-    Filter menu items based on parsed query
+    Filter menu items based on parsed query - SIMPLIFIED for performance
     """
     all_items = []
     
-    # Flatten menu items from all categories
-    for category in menu.get("categories", []):
-        for item in category.get("items", []):
-            item_dict = item.copy() if isinstance(item, dict) else item.dict()
-            item_dict["category"] = category.get("name", "")
-            all_items.append(item_dict)
+    # Flatten menu items from all categories - limit to first 20 items for speed
+    for category in menu.get("categories", [])[:5]:  # Only first 5 categories
+        for item in category.get("items", [])[:10]:  # Only first 10 items per category
+            try:
+                item_dict = item.copy() if isinstance(item, dict) else item.dict()
+                item_dict["category"] = category.get("name", "")
+                all_items.append(item_dict)
+            except:
+                continue
     
-    results = all_items.copy()
+    results = all_items
     
-    # Filter by dish name
-    if parsed.dish:
+    # Quick filters only
+    if parsed.dish and results:
         dish_lower = parsed.dish.lower()
-        results = [item for item in results if dish_lower in item["name"].lower()]
+        results = [item for item in results if dish_lower in item.get("name", "").lower()][:5]
     
-    # Filter by price
-    if parsed.price_max:
-        results = [item for item in results if item["price"] <= parsed.price_max]
+    if parsed.price_max and results:
+        results = [item for item in results if item.get("price", 0) <= parsed.price_max][:5]
     
-    # Filter by preferences
-    if "spicy" in parsed.preferences:
-        results = [item for item in results if item.get("spicy", False)]
+    if "spicy" in parsed.preferences and results:
+        results = [item for item in results if item.get("spicy", False)][:5]
     
-    if "vegetarian" in parsed.preferences:
-        results = [item for item in results if item.get("vegetarian", False)]
+    if "vegetarian" in parsed.preferences and results:
+        results = [item for item in results if item.get("vegetarian", False)][:5]
     
-    return results
+    return results[:5]  # Return max 5 items
 
 @app.post(
     "/api/v1/search/intelligent",
@@ -763,23 +764,27 @@ async def intelligent_search(request: IntelligentSearchRequest):
         raise HTTPException(status_code=500, detail=f"Restaurant filtering failed: {str(e)}")
     
     try:
-        # Get suggested menu items
+        # Get suggested menu items - SIMPLIFIED for performance
         logger.info(f"[INTELLIGENT_SEARCH] Getting menu items for top restaurants")
         suggested_items = []
-        for restaurant in filtered_restaurants[:3]:  # Top 3 restaurants
-            menu = MENUS.get(restaurant["id"], {"categories": []})
-            items = filter_menu_items_by_query(parsed, menu)
-            for item in items[:2]:  # Top 2 items per restaurant
-                suggested_items.append({
-                    "restaurant_id": restaurant["id"],
-                    "restaurant_name": restaurant["name"],
-                    "item_id": item.get("id", ""),
-                    "item_name": item.get("name", ""),
-                    "price": item.get("price", 0),
-                    "category": item.get("category", ""),
-                    "spicy": item.get("spicy", False),
-                    "vegetarian": item.get("vegetarian", False)
-                })
+        
+        # Only process menu items if we have specific dish or price constraints
+        if parsed.dish or parsed.price_max or parsed.preferences:
+            for restaurant in filtered_restaurants[:2]:  # Only top 2 restaurants
+                menu = MENUS.get(restaurant["id"], {"categories": []})
+                items = filter_menu_items_by_query(parsed, menu)
+                for item in items[:1]:  # Only top 1 item per restaurant
+                    suggested_items.append({
+                        "restaurant_id": restaurant["id"],
+                        "restaurant_name": restaurant["name"],
+                        "item_id": item.get("id", ""),
+                        "item_name": item.get("name", ""),
+                        "price": item.get("price", 0),
+                        "category": item.get("category", ""),
+                        "spicy": item.get("spicy", False),
+                        "vegetarian": item.get("vegetarian", False)
+                    })
+        
         logger.info(f"[INTELLIGENT_SEARCH] Found {len(suggested_items)} suggested items")
     except Exception as e:
         logger.error(f"[INTELLIGENT_SEARCH] Menu items error: {str(e)}")
