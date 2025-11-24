@@ -192,12 +192,24 @@ async def root():
         "version": "1.0.0",
         "description": "Mock API for ChatGPT Custom GPT integration",
         "docs_url": "/docs",
+        "openapi_production": "/openapi-production.json",
         "endpoints": {
             "restaurants": "/api/v1/restaurants/search",
             "menu": "/api/v1/restaurants/{id}/menu",
             "orders": "/api/v1/orders",
         }
     }
+
+@app.get("/openapi-production.json")
+async def get_production_openapi():
+    """Serve production-only OpenAPI spec (no localhost)"""
+    import os
+    import json
+    
+    # Read the openapi-production.json file
+    file_path = os.path.join(os.path.dirname(__file__), "openapi-production.json")
+    with open(file_path, 'r') as f:
+        return json.load(f)
 
 @app.get("/health")
 async def health_check():
