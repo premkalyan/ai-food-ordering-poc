@@ -582,11 +582,18 @@ def parse_natural_language_query(query: str, location: Optional[str] = None) -> 
     # Extract dish names (common dishes)
     dish = None
     common_dishes = [
-        "tandoori chicken", "butter chicken", "biryani", "naan",
-        "pizza", "pasta", "margherita", "pepperoni",
-        "sushi", "ramen", "tempura",
-        "tacos", "burrito", "quesadilla",
-        "pad thai", "curry", "fried rice", "noodles"
+        # Indian dishes (match our menu)
+        "chicken tikka masala", "chicken tikka", "butter chicken", "tandoori chicken",
+        "paneer butter masala", "lamb rogan josh", "chicken biryani", "vegetable biryani",
+        "samosa", "biryani", "naan", "garlic naan", "butter naan",
+        # Italian
+        "pizza", "pasta", "margherita", "pepperoni", "lasagna", "carbonara",
+        # Japanese
+        "sushi", "ramen", "tempura", "teriyaki",
+        # Mexican
+        "tacos", "burrito", "quesadilla", "enchilada",
+        # Thai
+        "pad thai", "curry", "fried rice", "noodles", "tom yum"
     ]
     for dish_name in common_dishes:
         if dish_name in query_lower:
