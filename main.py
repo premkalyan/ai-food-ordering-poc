@@ -722,41 +722,22 @@ def filter_menu_items_by_query(parsed: ParsedQuery, menu: Dict) -> List[Dict]:
     
     return results[:5]  # Return max 5 items
 
-@app.post(
+@app.get(
     "/api/v1/search/intelligent",
     summary="Intelligent search with natural language",
     description="Search restaurants using complex natural language queries with multiple constraints"
 )
-async def intelligent_search(request: Dict[str, Any]):
+async def intelligent_search(query: str = "test", location: str = "San Francisco"):
     """
-    MINIMAL VERSION - Incrementally add functionality to find timeout cause
-    
-    Handle complex natural language queries like:
-    - "I would like to try Tandoori Chicken from an Indian restaurant"
-    - "I'm hungry, get me something spicy in 15 minutes"
-    - "Something Italian under $5 in 10 minutes"
+    MINIMAL VERSION - Just return hello world to test if endpoint works
     """
-    logger.info(f"[INTELLIGENT_SEARCH] ========== REQUEST RECEIVED ==========")
-    logger.info(f"[INTELLIGENT_SEARCH] Raw request: {request}")
+    logger.info(f"[INTELLIGENT_SEARCH] Hello World endpoint hit!")
     
-    # STEP 1: Just return a dummy response
     return {
-        "message": "Intelligent search endpoint is working!",
-        "query": request.get("query", ""),
-        "location": request.get("location", ""),
-        "status": "success",
-        "restaurants": [],
-        "parsed_query": {
-            "intent": "test",
-            "cuisine": None,
-            "dish": None,
-            "price_max": None,
-            "time_max": None,
-            "preferences": [],
-            "use_favorites": False,
-            "urgency": None,
-            "location": request.get("location", "")
-        }
+        "message": "Hello World from intelligent search!",
+        "query": query,
+        "location": location,
+        "status": "success"
     }
 
 # Favorites Endpoints
