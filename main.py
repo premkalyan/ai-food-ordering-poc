@@ -379,25 +379,35 @@ async def update_order(order_id: str, status: str):
 
 @app.get(
     "/api/v1/cuisines",
-    response_model=List[str],
     summary="Get available cuisines",
-    description="Get list of all available cuisine types"
+    description="Get list of all available cuisine types in a structured format"
 )
 async def get_cuisines():
     """Get list of available cuisines"""
     logger.info("Getting available cuisines")
-    return sorted(CUISINES)
+    cuisines = sorted(CUISINES)
+    return {
+        "cuisines": cuisines,
+        "count": len(cuisines),
+        "message": "Available cuisine types",
+        "prompt": "Which cuisine are you in the mood for? Choose one from the list above."
+    }
 
 @app.get(
     "/api/v1/cities",
-    response_model=List[str],
     summary="Get available cities",
-    description="Get list of all cities with restaurants"
+    description="Get list of all cities with restaurants in a structured format for better UX"
 )
 async def get_cities():
     """Get list of cities with restaurants"""
     logger.info("Getting available cities")
-    return sorted(CITIES)
+    cities = sorted(CITIES)
+    return {
+        "cities": cities,
+        "count": len(cities),
+        "message": "Available cities for food delivery",
+        "prompt": "Which city are you in? Just type or click one of the options above."
+    }
 
 # User preference endpoints (for future enhancement)
 
