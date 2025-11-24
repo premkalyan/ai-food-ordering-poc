@@ -3,13 +3,14 @@ AI Food Ordering Mock API
 FastAPI backend simulating restaurant ordering platform
 """
 
-from fastapi import FastAPI, HTTPException, Request
+from fastapi import FastAPI, HTTPException, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 from typing import List, Optional, Dict, Any
 from datetime import datetime
 import logging
 import json
+from starlette.middleware.base import BaseHTTPMiddleware
 
 from mock_data import (
     get_restaurants_by_location,
@@ -79,14 +80,18 @@ async def log_requests(request: Request, call_next):
         "user_agent": request.headers.get("user-agent", ""),
     }
     
-    # Get request body if present
+    # Get request body if present (but don't consume it for the endpoint)
     if request.method in ["POST", "PUT", "PATCH"]:
         try:
-            body = await request.body()
-            if body:
-                request_log["body"] = json.loads(body.decode())
-        except:
-            pass
+            # Read body and store it for logging
+            body_bytes = await request.body()
+            if body_bytes:
+                request_log["body"] = json.loads(body_bytes.decode())
+                # IMPORTANT: Store body in request state so endpoint can access it
+                # This is needed because await request.body() can only be called once
+                request._body = body_bytes
+        except Exception as e:
+            logger.warning(f"Failed to parse request body: {e}")
     
     logger.info(f"REQUEST: {json.dumps(request_log, indent=2)}")
     
