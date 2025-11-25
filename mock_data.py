@@ -392,6 +392,470 @@ RESTAURANTS = [
         "delivery_fee": 3.99,
         "is_open": True,
         "image_url": "https://example.com/chicago-tandoor.jpg"
+    },
+    # === BANGALORE - Fill Missing Cuisines ===
+    {
+        "id": "rest_020",
+        "name": "Bangalore Wok",
+        "cuisine": "Chinese",
+        "location": {
+            "address": "88 MG Road, Bangalore, KA 560001",
+            "city": "Bangalore",
+            "state": "Karnataka",
+            "zip": "560001",
+            "lat": 12.9716,
+            "lng": 77.5946
+        },
+        "rating": 4.3,
+        "price_range": "$$",
+        "delivery_time": "20-30 min",
+        "minimum_order": 15.00,
+        "delivery_fee": 2.99,
+        "is_open": True,
+        "image_url": "https://example.com/bangalore-wok.jpg"
+    },
+    {
+        "id": "rest_021",
+        "name": "Pasta Paradise Bangalore",
+        "cuisine": "Italian",
+        "location": {
+            "address": "45 Indiranagar, Bangalore, KA 560038",
+            "city": "Bangalore",
+            "state": "Karnataka",
+            "zip": "560038",
+            "lat": 12.9716,
+            "lng": 77.5946
+        },
+        "rating": 4.4,
+        "price_range": "$$",
+        "delivery_time": "25-35 min",
+        "minimum_order": 18.00,
+        "delivery_fee": 3.49,
+        "is_open": True,
+        "image_url": "https://example.com/pasta-paradise-blr.jpg"
+    },
+    {
+        "id": "rest_022",
+        "name": "Sakura Sushi Bangalore",
+        "cuisine": "Japanese",
+        "location": {
+            "address": "12 Koramangala, Bangalore, KA 560034",
+            "city": "Bangalore",
+            "state": "Karnataka",
+            "zip": "560034",
+            "lat": 12.9352,
+            "lng": 77.6245
+        },
+        "rating": 4.6,
+        "price_range": "$$$",
+        "delivery_time": "30-40 min",
+        "minimum_order": 25.00,
+        "delivery_fee": 4.99,
+        "is_open": True,
+        "image_url": "https://example.com/sakura-blr.jpg"
+    },
+    {
+        "id": "rest_023",
+        "name": "Seoul Kitchen Bangalore",
+        "cuisine": "Korean",
+        "location": {
+            "address": "67 Whitefield, Bangalore, KA 560066",
+            "city": "Bangalore",
+            "state": "Karnataka",
+            "zip": "560066",
+            "lat": 12.9698,
+            "lng": 77.7499
+        },
+        "rating": 4.5,
+        "price_range": "$$",
+        "delivery_time": "25-35 min",
+        "minimum_order": 20.00,
+        "delivery_fee": 3.99,
+        "is_open": True,
+        "image_url": "https://example.com/seoul-blr.jpg"
+    },
+    {
+        "id": "rest_024",
+        "name": "Mediterranean Oasis Bangalore",
+        "cuisine": "Mediterranean",
+        "location": {
+            "address": "34 Brigade Road, Bangalore, KA 560025",
+            "city": "Bangalore",
+            "state": "Karnataka",
+            "zip": "560025",
+            "lat": 12.9716,
+            "lng": 77.5946
+        },
+        "rating": 4.4,
+        "price_range": "$$$",
+        "delivery_time": "28-38 min",
+        "minimum_order": 22.00,
+        "delivery_fee": 4.49,
+        "is_open": True,
+        "image_url": "https://example.com/med-oasis-blr.jpg"
+    },
+    {
+        "id": "rest_025",
+        "name": "Bangalore Fiesta",
+        "cuisine": "Mexican",
+        "location": {
+            "address": "56 Jayanagar, Bangalore, KA 560041",
+            "city": "Bangalore",
+            "state": "Karnataka",
+            "zip": "560041",
+            "lat": 12.9250,
+            "lng": 77.5838
+        },
+        "rating": 4.2,
+        "price_range": "$$",
+        "delivery_time": "22-32 min",
+        "minimum_order": 16.00,
+        "delivery_fee": 3.49,
+        "is_open": True,
+        "image_url": "https://example.com/fiesta-blr.jpg"
+    },
+    {
+        "id": "rest_026",
+        "name": "Thai Spice Bangalore",
+        "cuisine": "Thai",
+        "location": {
+            "address": "78 HSR Layout, Bangalore, KA 560102",
+            "city": "Bangalore",
+            "state": "Karnataka",
+            "zip": "560102",
+            "lat": 12.9121,
+            "lng": 77.6446
+        },
+        "rating": 4.5,
+        "price_range": "$$",
+        "delivery_time": "24-34 min",
+        "minimum_order": 18.00,
+        "delivery_fee": 3.99,
+        "is_open": True,
+        "image_url": "https://example.com/thai-spice-blr.jpg"
+    },
+    # === CHICAGO - Fill Missing Cuisines ===
+    {
+        "id": "rest_027",
+        "name": "Tokyo Express Chicago",
+        "cuisine": "Japanese",
+        "location": {
+            "address": "789 State St, Chicago, IL 60605",
+            "city": "Chicago",
+            "state": "IL",
+            "zip": "60605",
+            "lat": 41.8781,
+            "lng": -87.6298
+        },
+        "rating": 4.6,
+        "price_range": "$$$",
+        "delivery_time": "28-38 min",
+        "minimum_order": 25.00,
+        "delivery_fee": 4.99,
+        "is_open": True,
+        "image_url": "https://example.com/tokyo-chicago.jpg"
+    },
+    {
+        "id": "rest_028",
+        "name": "Seoul BBQ Chicago",
+        "cuisine": "Korean",
+        "location": {
+            "address": "234 Wabash Ave, Chicago, IL 60604",
+            "city": "Chicago",
+            "state": "IL",
+            "zip": "60604",
+            "lat": 41.8781,
+            "lng": -87.6265
+        },
+        "rating": 4.7,
+        "price_range": "$$",
+        "delivery_time": "25-35 min",
+        "minimum_order": 20.00,
+        "delivery_fee": 3.99,
+        "is_open": True,
+        "image_url": "https://example.com/seoul-chicago.jpg"
+    },
+    {
+        "id": "rest_029",
+        "name": "Greek Islands Chicago",
+        "cuisine": "Mediterranean",
+        "location": {
+            "address": "567 N Michigan Ave, Chicago, IL 60611",
+            "city": "Chicago",
+            "state": "IL",
+            "zip": "60611",
+            "lat": 41.8902,
+            "lng": -87.6250
+        },
+        "rating": 4.5,
+        "price_range": "$$$",
+        "delivery_time": "30-40 min",
+        "minimum_order": 22.00,
+        "delivery_fee": 4.49,
+        "is_open": True,
+        "image_url": "https://example.com/greek-chicago.jpg"
+    },
+    {
+        "id": "rest_030",
+        "name": "Thai Elephant Chicago",
+        "cuisine": "Thai",
+        "location": {
+            "address": "890 W Randolph St, Chicago, IL 60607",
+            "city": "Chicago",
+            "state": "IL",
+            "zip": "60607",
+            "lat": 41.8843,
+            "lng": -87.6501
+        },
+        "rating": 4.4,
+        "price_range": "$$",
+        "delivery_time": "26-36 min",
+        "minimum_order": 18.00,
+        "delivery_fee": 3.99,
+        "is_open": True,
+        "image_url": "https://example.com/thai-chicago.jpg"
+    },
+    # === LOS ANGELES - Fill Missing Cuisines ===
+    {
+        "id": "rest_031",
+        "name": "Golden Dragon LA",
+        "cuisine": "Chinese",
+        "location": {
+            "address": "345 W 3rd St, Los Angeles, CA 90013",
+            "city": "Los Angeles",
+            "state": "CA",
+            "zip": "90013",
+            "lat": 34.0522,
+            "lng": -118.2437
+        },
+        "rating": 4.4,
+        "price_range": "$$",
+        "delivery_time": "22-32 min",
+        "minimum_order": 15.00,
+        "delivery_fee": 3.49,
+        "is_open": True,
+        "image_url": "https://example.com/golden-dragon-la.jpg"
+    },
+    {
+        "id": "rest_032",
+        "name": "Bollywood Bites LA",
+        "cuisine": "Indian",
+        "location": {
+            "address": "678 S Flower St, Los Angeles, CA 90017",
+            "city": "Los Angeles",
+            "state": "CA",
+            "zip": "90017",
+            "lat": 34.0522,
+            "lng": -118.2437
+        },
+        "rating": 4.5,
+        "price_range": "$$",
+        "delivery_time": "25-35 min",
+        "minimum_order": 18.00,
+        "delivery_fee": 3.99,
+        "is_open": True,
+        "image_url": "https://example.com/bollywood-la.jpg"
+    },
+    {
+        "id": "rest_033",
+        "name": "Venice Italian Kitchen",
+        "cuisine": "Italian",
+        "location": {
+            "address": "123 Abbot Kinney Blvd, Los Angeles, CA 90291",
+            "city": "Los Angeles",
+            "state": "CA",
+            "zip": "90291",
+            "lat": 33.9925,
+            "lng": -118.4695
+        },
+        "rating": 4.6,
+        "price_range": "$$$",
+        "delivery_time": "28-38 min",
+        "minimum_order": 22.00,
+        "delivery_fee": 4.49,
+        "is_open": True,
+        "image_url": "https://example.com/venice-italian.jpg"
+    },
+    {
+        "id": "rest_034",
+        "name": "Seoul Station LA",
+        "cuisine": "Korean",
+        "location": {
+            "address": "456 S Western Ave, Los Angeles, CA 90020",
+            "city": "Los Angeles",
+            "state": "CA",
+            "zip": "90020",
+            "lat": 34.0522,
+            "lng": -118.2437
+        },
+        "rating": 4.7,
+        "price_range": "$$",
+        "delivery_time": "24-34 min",
+        "minimum_order": 20.00,
+        "delivery_fee": 3.99,
+        "is_open": True,
+        "image_url": "https://example.com/seoul-la.jpg"
+    },
+    {
+        "id": "rest_035",
+        "name": "Santorini Grill LA",
+        "cuisine": "Mediterranean",
+        "location": {
+            "address": "789 Pico Blvd, Los Angeles, CA 90015",
+            "city": "Los Angeles",
+            "state": "CA",
+            "zip": "90015",
+            "lat": 34.0407,
+            "lng": -118.2595
+        },
+        "rating": 4.5,
+        "price_range": "$$$",
+        "delivery_time": "30-40 min",
+        "minimum_order": 24.00,
+        "delivery_fee": 4.99,
+        "is_open": True,
+        "image_url": "https://example.com/santorini-la.jpg"
+    },
+    {
+        "id": "rest_036",
+        "name": "Thai Town LA",
+        "cuisine": "Thai",
+        "location": {
+            "address": "234 N Vermont Ave, Los Angeles, CA 90004",
+            "city": "Los Angeles",
+            "state": "CA",
+            "zip": "90004",
+            "lat": 34.0922,
+            "lng": -118.2915
+        },
+        "rating": 4.6,
+        "price_range": "$$",
+        "delivery_time": "23-33 min",
+        "minimum_order": 17.00,
+        "delivery_fee": 3.49,
+        "is_open": True,
+        "image_url": "https://example.com/thai-town-la.jpg"
+    },
+    # === NEW YORK - Fill Missing Cuisines ===
+    {
+        "id": "rest_037",
+        "name": "Chinatown Express NYC",
+        "cuisine": "Chinese",
+        "location": {
+            "address": "567 Canal St, New York, NY 10013",
+            "city": "New York",
+            "state": "NY",
+            "zip": "10013",
+            "lat": 40.7128,
+            "lng": -74.0060
+        },
+        "rating": 4.3,
+        "price_range": "$$",
+        "delivery_time": "20-30 min",
+        "minimum_order": 15.00,
+        "delivery_fee": 2.99,
+        "is_open": True,
+        "image_url": "https://example.com/chinatown-nyc.jpg"
+    },
+    {
+        "id": "rest_038",
+        "name": "Tokyo Sushi NYC",
+        "cuisine": "Japanese",
+        "location": {
+            "address": "890 Madison Ave, New York, NY 10021",
+            "city": "New York",
+            "state": "NY",
+            "zip": "10021",
+            "lat": 40.7731,
+            "lng": -73.9630
+        },
+        "rating": 4.7,
+        "price_range": "$$$",
+        "delivery_time": "28-38 min",
+        "minimum_order": 25.00,
+        "delivery_fee": 4.99,
+        "is_open": True,
+        "image_url": "https://example.com/tokyo-nyc.jpg"
+    },
+    {
+        "id": "rest_039",
+        "name": "K-Town BBQ NYC",
+        "cuisine": "Korean",
+        "location": {
+            "address": "123 W 32nd St, New York, NY 10001",
+            "city": "New York",
+            "state": "NY",
+            "zip": "10001",
+            "lat": 40.7488,
+            "lng": -73.9890
+        },
+        "rating": 4.6,
+        "price_range": "$$",
+        "delivery_time": "25-35 min",
+        "minimum_order": 20.00,
+        "delivery_fee": 3.99,
+        "is_open": True,
+        "image_url": "https://example.com/ktown-nyc.jpg"
+    },
+    {
+        "id": "rest_040",
+        "name": "Mediterranean Breeze NYC",
+        "cuisine": "Mediterranean",
+        "location": {
+            "address": "456 Park Ave, New York, NY 10022",
+            "city": "New York",
+            "state": "NY",
+            "zip": "10022",
+            "lat": 40.7614,
+            "lng": -73.9776
+        },
+        "rating": 4.5,
+        "price_range": "$$$",
+        "delivery_time": "30-40 min",
+        "minimum_order": 24.00,
+        "delivery_fee": 4.99,
+        "is_open": True,
+        "image_url": "https://example.com/med-breeze-nyc.jpg"
+    },
+    {
+        "id": "rest_041",
+        "name": "Cancun Cantina NYC",
+        "cuisine": "Mexican",
+        "location": {
+            "address": "789 Broadway, New York, NY 10003",
+            "city": "New York",
+            "state": "NY",
+            "zip": "10003",
+            "lat": 40.7282,
+            "lng": -73.9942
+        },
+        "rating": 4.4,
+        "price_range": "$$",
+        "delivery_time": "22-32 min",
+        "minimum_order": 16.00,
+        "delivery_fee": 3.49,
+        "is_open": True,
+        "image_url": "https://example.com/cancun-nyc.jpg"
+    },
+    {
+        "id": "rest_042",
+        "name": "Bangkok Street NYC",
+        "cuisine": "Thai",
+        "location": {
+            "address": "234 E 53rd St, New York, NY 10022",
+            "city": "New York",
+            "state": "NY",
+            "zip": "10022",
+            "lat": 40.7573,
+            "lng": -73.9714
+        },
+        "rating": 4.6,
+        "price_range": "$$",
+        "delivery_time": "24-34 min",
+        "minimum_order": 18.00,
+        "delivery_fee": 3.99,
+        "is_open": True,
+        "image_url": "https://example.com/bangkok-nyc.jpg"
     }
 ]
 
@@ -1360,6 +1824,310 @@ MENUS = {
     },
     "rest_044": {  # Placeholder for future expansion
         "categories": []
+    },
+    # === BANGALORE - New Restaurant Menus ===
+    "rest_020": {  # Bangalore Wok (Chinese)
+        "categories": [
+            {
+                "name": "Appetizers",
+                "items": [
+                    {"id": "item_2001", "name": "Spring Rolls (4 pcs)", "description": "Crispy vegetable spring rolls", "price": 6.99, "vegetarian": True, "spicy": False},
+                    {"id": "item_2002", "name": "Chicken Dumplings (6 pcs)", "description": "Steamed chicken dumplings", "price": 8.99, "vegetarian": False, "spicy": False}
+                ]
+            },
+            {
+                "name": "Main Course",
+                "items": [
+                    {"id": "item_2003", "name": "Kung Pao Chicken", "description": "Spicy chicken with peanuts and vegetables", "price": 14.99, "vegetarian": False, "spicy": True, "popular": True},
+                    {"id": "item_2004", "name": "Vegetable Fried Rice", "description": "Mixed vegetables with fried rice", "price": 11.99, "vegetarian": True, "spicy": False},
+                    {"id": "item_2005", "name": "Beef with Broccoli", "description": "Tender beef in brown sauce", "price": 16.99, "vegetarian": False, "spicy": False}
+                ]
+            }
+        ]
+    },
+    "rest_021": {  # Pasta Paradise Bangalore (Italian)
+        "categories": [
+            {
+                "name": "Pasta",
+                "items": [
+                    {"id": "item_2101", "name": "Spaghetti Carbonara", "description": "Creamy pasta with bacon and eggs", "price": 15.99, "vegetarian": False, "spicy": False, "popular": True},
+                    {"id": "item_2102", "name": "Penne Arrabbiata", "description": "Spicy tomato sauce pasta", "price": 13.99, "vegetarian": True, "spicy": True},
+                    {"id": "item_2103", "name": "Lasagna", "description": "Layered pasta with meat sauce", "price": 17.99, "vegetarian": False, "spicy": False}
+                ]
+            },
+            {
+                "name": "Pizza",
+                "items": [
+                    {"id": "item_2104", "name": "Margherita Pizza", "description": "Classic tomato and mozzarella", "price": 14.99, "vegetarian": True, "spicy": False, "popular": True}
+                ]
+            }
+        ]
+    },
+    "rest_022": {  # Sakura Sushi Bangalore (Japanese)
+        "categories": [
+            {
+                "name": "Sushi Rolls",
+                "items": [
+                    {"id": "item_2201", "name": "California Roll", "description": "Crab, avocado, cucumber", "price": 12.99, "vegetarian": False, "spicy": False, "popular": True},
+                    {"id": "item_2202", "name": "Spicy Tuna Roll", "description": "Tuna with spicy mayo", "price": 14.99, "vegetarian": False, "spicy": True},
+                    {"id": "item_2203", "name": "Vegetable Roll", "description": "Assorted fresh vegetables", "price": 10.99, "vegetarian": True, "spicy": False}
+                ]
+            },
+            {
+                "name": "Main Dishes",
+                "items": [
+                    {"id": "item_2204", "name": "Chicken Teriyaki", "description": "Grilled chicken with teriyaki sauce", "price": 16.99, "vegetarian": False, "spicy": False}
+                ]
+            }
+        ]
+    },
+    "rest_023": {  # Seoul Kitchen Bangalore (Korean)
+        "categories": [
+            {
+                "name": "Main Dishes",
+                "items": [
+                    {"id": "item_2301", "name": "Bibimbap", "description": "Mixed rice bowl with vegetables and egg", "price": 15.99, "vegetarian": False, "spicy": True, "popular": True},
+                    {"id": "item_2302", "name": "Korean BBQ Beef", "description": "Marinated beef bulgogi", "price": 19.99, "vegetarian": False, "spicy": True},
+                    {"id": "item_2303", "name": "Kimchi Fried Rice", "description": "Spicy fermented cabbage rice", "price": 13.99, "vegetarian": True, "spicy": True}
+                ]
+            }
+        ]
+    },
+    "rest_024": {  # Mediterranean Oasis Bangalore
+        "categories": [
+            {
+                "name": "Main Dishes",
+                "items": [
+                    {"id": "item_2401", "name": "Falafel Wrap", "description": "Crispy chickpea balls in warm pita", "price": 12.99, "vegetarian": True, "spicy": False, "popular": True},
+                    {"id": "item_2402", "name": "Lamb Gyro", "description": "Grilled lamb in pita bread", "price": 16.99, "vegetarian": False, "spicy": False},
+                    {"id": "item_2403", "name": "Greek Salad", "description": "Fresh vegetables with feta cheese", "price": 10.99, "vegetarian": True, "spicy": False}
+                ]
+            }
+        ]
+    },
+    "rest_025": {  # Bangalore Fiesta (Mexican)
+        "categories": [
+            {
+                "name": "Main Dishes",
+                "items": [
+                    {"id": "item_2501", "name": "Chicken Burrito", "description": "Rice, beans, chicken, cheese wrapped in tortilla", "price": 12.99, "vegetarian": False, "spicy": True, "popular": True},
+                    {"id": "item_2502", "name": "Beef Tacos (3 pcs)", "description": "Soft shell tacos with seasoned beef", "price": 11.99, "vegetarian": False, "spicy": True},
+                    {"id": "item_2503", "name": "Vegetarian Quesadilla", "description": "Cheese and vegetables in grilled tortilla", "price": 10.99, "vegetarian": True, "spicy": False}
+                ]
+            }
+        ]
+    },
+    "rest_026": {  # Thai Spice Bangalore
+        "categories": [
+            {
+                "name": "Main Dishes",
+                "items": [
+                    {"id": "item_2601", "name": "Pad Thai", "description": "Stir-fried noodles with shrimp and peanuts", "price": 14.99, "vegetarian": False, "spicy": True, "popular": True},
+                    {"id": "item_2602", "name": "Green Curry", "description": "Thai green curry with chicken", "price": 15.99, "vegetarian": False, "spicy": True},
+                    {"id": "item_2603", "name": "Vegetable Spring Rolls (4 pcs)", "description": "Fresh vegetables in rice paper", "price": 8.99, "vegetarian": True, "spicy": False}
+                ]
+            }
+        ]
+    },
+    # === CHICAGO - New Restaurant Menus ===
+    "rest_027": {  # Tokyo Express Chicago (Japanese)
+        "categories": [
+            {
+                "name": "Sushi",
+                "items": [
+                    {"id": "item_2701", "name": "Rainbow Roll", "description": "Assorted fish on California roll", "price": 18.99, "vegetarian": False, "spicy": False, "popular": True},
+                    {"id": "item_2702", "name": "Dragon Roll", "description": "Eel and avocado", "price": 16.99, "vegetarian": False, "spicy": False}
+                ]
+            },
+            {
+                "name": "Main Dishes",
+                "items": [
+                    {"id": "item_2703", "name": "Beef Teriyaki", "description": "Grilled beef with teriyaki glaze", "price": 19.99, "vegetarian": False, "spicy": False}
+                ]
+            }
+        ]
+    },
+    "rest_028": {  # Seoul BBQ Chicago (Korean)
+        "categories": [
+            {
+                "name": "Main Dishes",
+                "items": [
+                    {"id": "item_2801", "name": "Korean BBQ Platter", "description": "Assorted grilled meats with sides", "price": 24.99, "vegetarian": False, "spicy": True, "popular": True},
+                    {"id": "item_2802", "name": "Japchae", "description": "Stir-fried glass noodles with vegetables", "price": 14.99, "vegetarian": True, "spicy": False},
+                    {"id": "item_2803", "name": "Spicy Pork Bulgogi", "description": "Marinated spicy pork", "price": 17.99, "vegetarian": False, "spicy": True}
+                ]
+            }
+        ]
+    },
+    "rest_029": {  # Greek Islands Chicago (Mediterranean)
+        "categories": [
+            {
+                "name": "Main Dishes",
+                "items": [
+                    {"id": "item_2901", "name": "Souvlaki Platter", "description": "Grilled meat skewers with rice and salad", "price": 18.99, "vegetarian": False, "spicy": False, "popular": True},
+                    {"id": "item_2902", "name": "Moussaka", "description": "Layered eggplant and meat casserole", "price": 17.99, "vegetarian": False, "spicy": False},
+                    {"id": "item_2903", "name": "Hummus Platter", "description": "Hummus with pita and vegetables", "price": 11.99, "vegetarian": True, "spicy": False}
+                ]
+            }
+        ]
+    },
+    "rest_030": {  # Thai Elephant Chicago
+        "categories": [
+            {
+                "name": "Main Dishes",
+                "items": [
+                    {"id": "item_3001", "name": "Massaman Curry", "description": "Rich curry with potatoes and peanuts", "price": 16.99, "vegetarian": False, "spicy": True, "popular": True},
+                    {"id": "item_3002", "name": "Tom Yum Soup", "description": "Spicy and sour Thai soup", "price": 12.99, "vegetarian": False, "spicy": True},
+                    {"id": "item_3003", "name": "Basil Fried Rice", "description": "Thai basil fried rice", "price": 13.99, "vegetarian": True, "spicy": True}
+                ]
+            }
+        ]
+    },
+    # === LOS ANGELES - New Restaurant Menus ===
+    "rest_031": {  # Golden Dragon LA (Chinese)
+        "categories": [
+            {
+                "name": "Main Course",
+                "items": [
+                    {"id": "item_3101", "name": "General Tso's Chicken", "description": "Sweet and spicy fried chicken", "price": 15.99, "vegetarian": False, "spicy": True, "popular": True},
+                    {"id": "item_3102", "name": "Mongolian Beef", "description": "Beef with scallions in brown sauce", "price": 17.99, "vegetarian": False, "spicy": False},
+                    {"id": "item_3103", "name": "Mapo Tofu", "description": "Spicy tofu with ground pork", "price": 13.99, "vegetarian": False, "spicy": True}
+                ]
+            }
+        ]
+    },
+    "rest_032": {  # Bollywood Bites LA (Indian)
+        "categories": [
+            {
+                "name": "Main Course",
+                "items": [
+                    {"id": "item_3201", "name": "Chicken Tikka Masala", "description": "Grilled chicken in creamy tomato sauce", "price": 17.99, "vegetarian": False, "spicy": True, "popular": True},
+                    {"id": "item_3202", "name": "Lamb Rogan Josh", "description": "Tender lamb in aromatic curry", "price": 19.99, "vegetarian": False, "spicy": True},
+                    {"id": "item_3203", "name": "Palak Paneer", "description": "Spinach curry with cottage cheese", "price": 14.99, "vegetarian": True, "spicy": False}
+                ]
+            }
+        ]
+    },
+    "rest_033": {  # Venice Italian Kitchen
+        "categories": [
+            {
+                "name": "Pasta & Pizza",
+                "items": [
+                    {"id": "item_3301", "name": "Fettuccine Alfredo", "description": "Creamy parmesan pasta", "price": 16.99, "vegetarian": True, "spicy": False, "popular": True},
+                    {"id": "item_3302", "name": "Pepperoni Pizza", "description": "Classic pepperoni pizza", "price": 15.99, "vegetarian": False, "spicy": False},
+                    {"id": "item_3303", "name": "Seafood Linguine", "description": "Pasta with mixed seafood", "price": 21.99, "vegetarian": False, "spicy": False}
+                ]
+            }
+        ]
+    },
+    "rest_034": {  # Seoul Station LA (Korean)
+        "categories": [
+            {
+                "name": "Main Dishes",
+                "items": [
+                    {"id": "item_3401", "name": "Korean Fried Chicken", "description": "Crispy fried chicken with gochujang sauce", "price": 16.99, "vegetarian": False, "spicy": True, "popular": True},
+                    {"id": "item_3402", "name": "Bibimbap Bowl", "description": "Rice bowl with vegetables and beef", "price": 15.99, "vegetarian": False, "spicy": True},
+                    {"id": "item_3403", "name": "Tofu Stew", "description": "Spicy soft tofu soup", "price": 13.99, "vegetarian": True, "spicy": True}
+                ]
+            }
+        ]
+    },
+    "rest_035": {  # Santorini Grill LA (Mediterranean)
+        "categories": [
+            {
+                "name": "Main Dishes",
+                "items": [
+                    {"id": "item_3501", "name": "Shawarma Platter", "description": "Chicken shawarma with rice and salad", "price": 17.99, "vegetarian": False, "spicy": False, "popular": True},
+                    {"id": "item_3502", "name": "Grilled Halloumi", "description": "Grilled cheese with vegetables", "price": 14.99, "vegetarian": True, "spicy": False},
+                    {"id": "item_3503", "name": "Lamb Kebab", "description": "Grilled lamb skewers", "price": 20.99, "vegetarian": False, "spicy": False}
+                ]
+            }
+        ]
+    },
+    "rest_036": {  # Thai Town LA
+        "categories": [
+            {
+                "name": "Main Dishes",
+                "items": [
+                    {"id": "item_3601", "name": "Pad See Ew", "description": "Stir-fried wide noodles", "price": 14.99, "vegetarian": False, "spicy": False, "popular": True},
+                    {"id": "item_3602", "name": "Red Curry", "description": "Spicy red curry with chicken", "price": 15.99, "vegetarian": False, "spicy": True},
+                    {"id": "item_3603", "name": "Mango Sticky Rice", "description": "Sweet mango with coconut rice", "price": 8.99, "vegetarian": True, "spicy": False}
+                ]
+            }
+        ]
+    },
+    # === NEW YORK - New Restaurant Menus ===
+    "rest_037": {  # Chinatown Express NYC (Chinese)
+        "categories": [
+            {
+                "name": "Main Course",
+                "items": [
+                    {"id": "item_3701", "name": "Sweet and Sour Pork", "description": "Crispy pork in sweet and sour sauce", "price": 14.99, "vegetarian": False, "spicy": False, "popular": True},
+                    {"id": "item_3702", "name": "Szechuan Beef", "description": "Spicy beef with chili peppers", "price": 16.99, "vegetarian": False, "spicy": True},
+                    {"id": "item_3703", "name": "Buddha's Delight", "description": "Mixed vegetables in garlic sauce", "price": 12.99, "vegetarian": True, "spicy": False}
+                ]
+            }
+        ]
+    },
+    "rest_038": {  # Tokyo Sushi NYC (Japanese)
+        "categories": [
+            {
+                "name": "Premium Sushi",
+                "items": [
+                    {"id": "item_3801", "name": "Omakase Roll", "description": "Chef's special selection", "price": 24.99, "vegetarian": False, "spicy": False, "popular": True},
+                    {"id": "item_3802", "name": "Volcano Roll", "description": "Spicy tuna with baked topping", "price": 18.99, "vegetarian": False, "spicy": True},
+                    {"id": "item_3803", "name": "Salmon Sashimi", "description": "Fresh raw salmon slices", "price": 19.99, "vegetarian": False, "spicy": False}
+                ]
+            }
+        ]
+    },
+    "rest_039": {  # K-Town BBQ NYC (Korean)
+        "categories": [
+            {
+                "name": "Main Dishes",
+                "items": [
+                    {"id": "item_3901", "name": "Korean BBQ Combo", "description": "Mixed meats with banchan", "price": 26.99, "vegetarian": False, "spicy": True, "popular": True},
+                    {"id": "item_3902", "name": "Seafood Pancake", "description": "Crispy pancake with seafood", "price": 14.99, "vegetarian": False, "spicy": False},
+                    {"id": "item_3903", "name": "Spicy Tofu Soup", "description": "Soft tofu in spicy broth", "price": 13.99, "vegetarian": True, "spicy": True}
+                ]
+            }
+        ]
+    },
+    "rest_040": {  # Mediterranean Breeze NYC
+        "categories": [
+            {
+                "name": "Main Dishes",
+                "items": [
+                    {"id": "item_4001", "name": "Mixed Grill Platter", "description": "Assorted grilled meats", "price": 22.99, "vegetarian": False, "spicy": False, "popular": True},
+                    {"id": "item_4002", "name": "Falafel Bowl", "description": "Falafel with hummus and salad", "price": 14.99, "vegetarian": True, "spicy": False},
+                    {"id": "item_4003", "name": "Grilled Octopus", "description": "Tender grilled octopus", "price": 23.99, "vegetarian": False, "spicy": False}
+                ]
+            }
+        ]
+    },
+    "rest_041": {  # Cancun Cantina NYC (Mexican)
+        "categories": [
+            {
+                "name": "Main Dishes",
+                "items": [
+                    {"id": "item_4101", "name": "Carnitas Bowl", "description": "Slow-cooked pork with rice and beans", "price": 14.99, "vegetarian": False, "spicy": True, "popular": True},
+                    {"id": "item_4102", "name": "Chicken Enchiladas", "description": "Rolled tortillas with chicken and sauce", "price": 13.99, "vegetarian": False, "spicy": True},
+                    {"id": "item_4103", "name": "Veggie Fajitas", "description": "Sizzling vegetables with tortillas", "price": 12.99, "vegetarian": True, "spicy": False}
+                ]
+            }
+        ]
+    },
+    "rest_042": {  # Bangkok Street NYC (Thai)
+        "categories": [
+            {
+                "name": "Main Dishes",
+                "items": [
+                    {"id": "item_4201", "name": "Drunken Noodles", "description": "Spicy stir-fried noodles with basil", "price": 15.99, "vegetarian": False, "spicy": True, "popular": True},
+                    {"id": "item_4202", "name": "Panang Curry", "description": "Rich peanut curry with chicken", "price": 16.99, "vegetarian": False, "spicy": True},
+                    {"id": "item_4203", "name": "Thai Iced Tea", "description": "Sweet Thai tea with milk", "price": 4.99, "vegetarian": True, "spicy": False}
+                ]
+            }
+        ]
     },
     "rest_045": {  # Placeholder for future expansion
         "categories": []
