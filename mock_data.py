@@ -1278,6 +1278,78 @@ MENUS = {
             }
         ]
     },
+    "rest_006": {  # Mediterranean Delight (San Francisco)
+        "categories": [
+            {
+                "name": "Main Dishes",
+                "items": [
+                    {"id": "item_601", "name": "Chicken Shawarma Wrap", "description": "Grilled chicken with tahini sauce", "price": 12.99, "vegetarian": False, "spicy": False, "popular": True},
+                    {"id": "item_602", "name": "Falafel Platter", "description": "Crispy chickpea fritters with hummus", "price": 14.99, "vegetarian": True, "spicy": False},
+                    {"id": "item_603", "name": "Lamb Kebab", "description": "Grilled lamb skewers with rice", "price": 18.99, "vegetarian": False, "spicy": False}
+                ]
+            }
+        ]
+    },
+    "rest_007": {  # Thai Basil House (San Francisco)
+        "categories": [
+            {
+                "name": "Main Dishes",
+                "items": [
+                    {"id": "item_701", "name": "Pad Thai", "description": "Stir-fried rice noodles with shrimp", "price": 14.99, "vegetarian": False, "spicy": True, "popular": True},
+                    {"id": "item_702", "name": "Green Curry", "description": "Spicy coconut curry with chicken", "price": 15.99, "vegetarian": False, "spicy": True},
+                    {"id": "item_703", "name": "Mango Sticky Rice", "description": "Sweet coconut rice with fresh mango", "price": 7.99, "vegetarian": True, "spicy": False}
+                ]
+            }
+        ]
+    },
+    "rest_008": {  # Seoul Kitchen (San Francisco)
+        "categories": [
+            {
+                "name": "Main Dishes",
+                "items": [
+                    {"id": "item_801", "name": "Bibimbap", "description": "Rice bowl with vegetables and beef", "price": 16.99, "vegetarian": False, "spicy": True, "popular": True},
+                    {"id": "item_802", "name": "Korean BBQ Beef", "description": "Marinated grilled beef", "price": 21.99, "vegetarian": False, "spicy": True},
+                    {"id": "item_803", "name": "Kimchi Pancake", "description": "Savory pancake with fermented cabbage", "price": 9.99, "vegetarian": True, "spicy": True}
+                ]
+            }
+        ]
+    },
+    "rest_013": {  # Brooklyn Pizza Palace (New York)
+        "categories": [
+            {
+                "name": "Pizza",
+                "items": [
+                    {"id": "item_1301", "name": "New York Style Pepperoni", "description": "Classic thin crust pepperoni pizza", "price": 16.99, "vegetarian": False, "spicy": False, "popular": True},
+                    {"id": "item_1302", "name": "Margherita Pizza", "description": "Fresh mozzarella and basil", "price": 14.99, "vegetarian": True, "spicy": False},
+                    {"id": "item_1303", "name": "Meat Lovers Pizza", "description": "Pepperoni, sausage, bacon, ham", "price": 19.99, "vegetarian": False, "spicy": False}
+                ]
+            }
+        ]
+    },
+    "rest_014": {  # LA Sushi Bar (Los Angeles)
+        "categories": [
+            {
+                "name": "Sushi Rolls",
+                "items": [
+                    {"id": "item_1401", "name": "California Roll", "description": "Crab, avocado, cucumber", "price": 11.99, "vegetarian": False, "spicy": False, "popular": True},
+                    {"id": "item_1402", "name": "Spicy Tuna Roll", "description": "Fresh tuna with spicy mayo", "price": 13.99, "vegetarian": False, "spicy": True},
+                    {"id": "item_1403", "name": "Rainbow Roll", "description": "Assorted fish on California roll", "price": 17.99, "vegetarian": False, "spicy": False}
+                ]
+            }
+        ]
+    },
+    "rest_015": {  # Hollywood Tacos (Los Angeles)
+        "categories": [
+            {
+                "name": "Tacos",
+                "items": [
+                    {"id": "item_1501", "name": "Carne Asada Tacos (3)", "description": "Grilled steak tacos", "price": 12.99, "vegetarian": False, "spicy": True, "popular": True},
+                    {"id": "item_1502", "name": "Fish Tacos (3)", "description": "Battered fish with cabbage slaw", "price": 13.99, "vegetarian": False, "spicy": False},
+                    {"id": "item_1503", "name": "Veggie Burrito", "description": "Rice, beans, vegetables, cheese", "price": 10.99, "vegetarian": True, "spicy": False}
+                ]
+            }
+        ]
+    },
     "rest_009": {  # Spice Garden Indian Kitchen (Bangalore)
         "categories": [
             {
